@@ -37,7 +37,7 @@ export default function WelcomeScreen({ onSignIn }) {
             Koneru Lakshmaiah Education Foundation
           </div>
           <div className="welcome-org-sub">
-            ACADEMIC PERFORMANCE PORTAL
+            STUDENT GRIEVANCE PORTAL
           </div>
         </div>
 
@@ -75,14 +75,11 @@ export default function WelcomeScreen({ onSignIn }) {
             </h1>
 
             <p className="welcome-subheading">
-              Academic Performance &amp; Attendance Management Portal
+              Student Grieveance Portal
             </p>
 
             <p className="welcome-desc">
-              A central executive platform for real-time
-              attendance tracking, academic evaluations,
-              course backlogs management, and department
-              analytics.
+             A centralized platform for student grievances, feedback, and resolution tracking.
             </p>
 
             <button
