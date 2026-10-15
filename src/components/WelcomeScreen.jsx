@@ -79,7 +79,7 @@ export default function WelcomeScreen({ onSignIn }) {
             </p>
 
             <p className="welcome-desc">
-             A centralized platform for student grievances, feedback, and resolution tracking.
+             A centralized platform for submitting student grievances, tracking their status, and managing the resolution process. It enables transparent reviews, organized grievance handling, and effective coordination between students, faculty, and designated authorities.
             </p>
 
             <button
