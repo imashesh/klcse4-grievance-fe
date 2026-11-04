@@ -1,98 +1,142 @@
-import { useState, useEffect } from "react";
-import { ShieldCheck } from "lucide-react";
-import { login as loginAPI } from "./api";
-import useHashRouter from "./hooks/useHashRouter";
-import LoginScreen from "./components/LoginScreen";
-import Shell from "./components/Shell";
+import { useState } from "react";
+import {
+  ChevronRight,
+  AlertCircle,
+  GitBranch,
+  Lock,
+  BookOpen,
+} from "lucide-react";
 
-const STORAGE_KEY = "kl_grievance_user";
+export default function LoginScreen({ onLogin, error, clearError }) {
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-function getSavedUser() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch { /* ignore corrupt data */ }
-  return null;
-}
-
-export default function App() {
-  const [currentUser, setCurrentUser] = useState(getSavedUser);
-  const [loginError, setLoginError] = useState("");
-  const [toast, setToast] = useState(null);
-
-  // Determine default path based on whether user is logged in
-  const defaultPath = currentUser ? "/dashboard" : "/login";
-  const { path, navigate, replace } = useHashRouter(defaultPath);
-
-  // Keep localStorage in sync with currentUser
-  useEffect(() => {
-    if (currentUser) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUser));
-    } else {
-      localStorage.removeItem(STORAGE_KEY);
-    }
-  }, [currentUser]);
-
-  // When user logs in or out, sync the hash path
-  useEffect(() => {
-    if (currentUser && (path === "/welcome" || path === "/login")) {
-      replace("/dashboard");
-    }
-    if (!currentUser && path.startsWith("/dashboard")) {
-      replace("/login");
-    }
-  }, [currentUser, path, replace]);
-
-  function showToast(msg, kind = "success") {
-    setToast({ msg, kind });
-    setTimeout(() => setToast(null), 3200);
+  function submit(event) {
+    event.preventDefault();
+    if (!id.trim() || !password) return;
+    onLogin(id.trim(), password);
   }
 
-  async function handleLogin(id, password) {
-    try {
-      const user = await loginAPI(id, password);
-      setLoginError("");
-      setCurrentUser(user);
-      navigate("/dashboard");
-    } catch (err) {
-      const msg = err.response?.data?.error || "Login failed. Please try again.";
-      setLoginError(msg);
-    }
+  function updateId(value) {
+    setId(value);
+    clearError();
   }
 
-  function handleLogout() {
-    setCurrentUser(null);
-    navigate("/login");
+  function updatePassword(value) {
+    setPassword(value);
+    clearError();
   }
 
-  // --- Routing logic ---
-  // Not logged in: always show the sign-in page directly.
-  // Old #/welcome links are redirected to #/login.
-  if (!currentUser) {
-    if (path !== "/login") {
-      replace("/login");
-    }
-
-    return (
-      <LoginScreen
-        onLogin={handleLogin}
-        error={loginError}
-        clearError={() => setLoginError("")}
-      />
-    );
-  }
-
-  // Logged in: show dashboard
   return (
-    <>
-      <Shell
-        currentUser={currentUser}
-        onLogout={handleLogout}
-        showToast={showToast}
-        navigate={navigate}
-        currentPath={path}
-      />
-      {toast && <div className={`toast toast-${toast.kind}`}>{toast.msg}</div>}
-    </>
+    <main className="login-wrap">
+      <section className="login-card" aria-label="Student Grievance Portal sign in">
+        <aside className="login-brand">
+          <div className="login-brand-top">
+            <div className="brand-mark">
+              <img src="/kl_logo.svg" alt="KL University" />
+              <span>Department of CSE-4</span>
+            </div>
+            <div className="brand-title">Student Grievance Portal</div>
+            <p className="brand-sub">
+              A centralized platform for submitting student grievances, tracking
+              their status, and managing the resolution process with transparency
+              and accountability.
+            </p>
+          </div>
+
+          <div className="brand-footer">
+            KL UNIVERSITY <span>·</span> CSE-4 <span>·</span> STUDENT GRIEVANCE PORTAL
+          </div>
+          <div className="login-orbit login-orbit-one" />
+          <div className="login-orbit login-orbit-two" />
+        </aside>
+
+        <section className="login-form-side">
+          <div className="login-secure-label">
+            <ChevronRight size={14} />
+            <span>Secure Portal Access</span>
+          </div>
+
+          <div className="login-heading">
+            <h2>Sign In to Portal</h2>
+            <p>Enter your credentials to access the grievance system.</p>
+          </div>
+
+          <div className="login-features">
+            <div className="login-feature-icon"><GitBranch size={17} /></div>
+            <div>
+              <div className="login-feature-title">Multi-Level Review</div>
+              <div className="login-feature-desc">Faculty → Coordinator → Deputy HOD → HOD</div>
+            </div>
+
+            <div className="login-feature-icon"><BookOpen size={17} /></div>
+            <div>
+              <div className="login-feature-title">Transparent Grievance Tracking</div>
+              <div className="login-feature-desc">Follow every stage of your grievance resolution</div>
+            </div>
+
+            <div className="login-feature-icon"><Lock size={17} /></div>
+            <div>
+              <div className="login-feature-title">Secure &amp; Confidential</div>
+              <div className="login-feature-desc">Role-based access for students and staff</div>
+            </div>
+          </div>
+
+          {error && (
+            <div className="login-error" role="alert">
+              <AlertCircle size={16} />
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form className="login-form" onSubmit={submit}>
+            <div className="field">
+              <label htmlFor="grievance-login-id">Login ID</label>
+              <input
+                id="grievance-login-id"
+                value={id}
+                onChange={(event) => updateId(event.target.value)}
+                placeholder="Enter your Login ID"
+                autoComplete="username"
+                required
+              />
+            </div>
+
+            <div className="field">
+              <label htmlFor="grievance-login-password">Password</label>
+              <div className="login-password-wrap">
+                <input
+                  id="grievance-login-password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(event) => updatePassword(event.target.value)}
+                  placeholder="Enter your password"
+                  autoComplete="current-password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="login-show-password"
+                  onClick={() => setShowPassword((visible) => !visible)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
+            </div>
+
+            <button className="btn btn-primary" type="submit">
+              Sign In
+            </button>
+          </form>
+
+          <div className="demo-creds">
+            <b>Login help</b>
+            <span>Use your assigned Login ID and password. Your role and access permissions are detected automatically.</span>
+          </div>
+        </section>
+      </section>
+    </main>
   );
 }
