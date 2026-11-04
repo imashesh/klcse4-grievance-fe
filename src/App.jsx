@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { ShieldCheck } from "lucide-react";
 import { login as loginAPI } from "./api";
 import useHashRouter from "./hooks/useHashRouter";
-import WelcomeScreen from "./components/WelcomeScreen";
 import LoginScreen from "./components/LoginScreen";
 import Shell from "./components/Shell";
 
@@ -22,7 +21,7 @@ export default function App() {
   const [toast, setToast] = useState(null);
 
   // Determine default path based on whether user is logged in
-  const defaultPath = currentUser ? "/dashboard" : "/welcome";
+  const defaultPath = currentUser ? "/dashboard" : "/login";
   const { path, navigate, replace } = useHashRouter(defaultPath);
 
   // Keep localStorage in sync with currentUser
@@ -67,20 +66,20 @@ export default function App() {
   }
 
   // --- Routing logic ---
-  // Not logged in: show Welcome or Login based on hash
+  // Not logged in: always show the sign-in page directly.
+  // Old #/welcome links are redirected to #/login.
   if (!currentUser) {
-    if (path === "/login") {
-      return (
-        <LoginScreen
-          onLogin={handleLogin}
-          error={loginError}
-          clearError={() => setLoginError("")}
-          onBack={() => { setLoginError(""); navigate("/welcome"); }}
-        />
-      );
+    if (path !== "/login") {
+      replace("/login");
     }
-    // Default: welcome
-    return <WelcomeScreen onSignIn={() => navigate("/login")} />;
+
+    return (
+      <LoginScreen
+        onLogin={handleLogin}
+        error={loginError}
+        clearError={() => setLoginError("")}
+      />
+    );
   }
 
   // Logged in: show dashboard
