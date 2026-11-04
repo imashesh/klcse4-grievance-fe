@@ -714,3 +714,492 @@
   .brand-title { font-size: 29px; }
   .brand-footer { letter-spacing: .08em; }
 }
+
+
+
+/* Grievance sign-in page — layout and typography aligned with Global Certifications Portal. */
+.grv-login-page,
+.grv-login-page * {
+  box-sizing: border-box;
+}
+
+.grv-login-page {
+  min-height: 100svh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 8% 12%, rgba(194,216,247,.72), transparent 31%),
+    radial-gradient(circle at 94% 90%, rgba(238,210,190,.42), transparent 28%),
+    linear-gradient(135deg, #eef4fc 0%, #f8faff 52%, #f1f5fb 100%);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #172033;
+}
+
+.grv-login-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.12fr);
+  width: min(940px, 100%);
+  min-height: 570px;
+  overflow: hidden;
+  border: 1px solid #dce5f0;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 22px 60px rgba(19, 43, 78, .13);
+}
+
+.grv-login-visual {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 570px;
+  padding: 34px 28px 24px;
+  color: #fff;
+  background: linear-gradient(155deg, #111b35 0%, #172b57 58%, #203765 100%);
+}
+
+.grv-department-mark {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #e5edf9;
+  font-size: clamp(12px, 1.05vw, 15px);
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+
+.grv-logo {
+  width: clamp(42px, 4vw, 54px);
+  height: clamp(42px, 4vw, 54px);
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 5px;
+  border-radius: 13px;
+  background: #fff;
+}
+
+.grv-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.grv-visual-copy {
+  position: relative;
+  z-index: 2;
+  margin-top: 38px;
+}
+
+.grv-visual-copy h1 {
+  max-width: 570px;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(30px, 3vw, 40px);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -1.4px;
+  text-wrap: balance;
+}
+
+.grv-visual-copy p {
+  max-width: 510px;
+  margin: 18px 0 0;
+  color: #dce7f8;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.grv-visual-footer {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding-top: 22px;
+  border-top: 1px solid rgba(220,232,250,.2);
+  color: #9fb2d0;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .14em;
+  line-height: 1.6;
+}
+
+.grv-visual-footer span {
+  padding: 0 4px;
+  color: #d3a94c;
+}
+
+.grv-orbit {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  border: 1px solid rgba(157,183,224,.17);
+  border-radius: 50%;
+}
+
+.grv-orbit-one {
+  width: min(46vw, 560px);
+  height: min(46vw, 560px);
+  right: -34%;
+  bottom: 5%;
+  box-shadow: 0 0 0 28px rgba(157,183,224,.035), 0 0 0 58px rgba(157,183,224,.025);
+}
+
+.grv-orbit-two {
+  width: min(31vw, 390px);
+  height: min(31vw, 390px);
+  right: -18%;
+  bottom: 14%;
+}
+
+.grv-login-panel {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 34px 38px 27px;
+  background: #fff;
+}
+
+.grv-back-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #526b8c;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.grv-back-chevron {
+  transform: rotate(180deg);
+}
+
+.grv-login-heading {
+  margin-top: 27px;
+}
+
+.grv-login-heading h2 {
+  margin: 0;
+  color: #101c32;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: -1.1px;
+}
+
+.grv-login-heading p {
+  margin: 8px 0 0;
+  color: #7889a1;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.grv-feature-list {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  align-items: center;
+  column-gap: 13px;
+  row-gap: 12px;
+  margin: 20px 0 18px;
+  padding: 15px;
+  border: 1px solid #e1e9f3;
+  border-radius: 16px;
+  background: #f8fafd;
+}
+
+.grv-feature-icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d9e6ff;
+  border-radius: 10px;
+  color: #4778df;
+  background: #edf4ff;
+}
+
+.grv-feature-list strong {
+  display: block;
+  color: #1b2a42;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.grv-feature-list small {
+  display: block;
+  margin-top: 4px;
+  color: #71839d;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.grv-login-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 0 0 12px;
+  padding: 11px 13px;
+  border: 1px solid #fecaca;
+  border-radius: 10px;
+  color: #b91c1c;
+  background: #fef2f2;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.grv-login-error svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+.grv-login-form {
+  display: grid;
+  gap: 9px;
+}
+
+.grv-login-form label {
+  margin-top: 2px;
+  color: #263b59;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.grv-login-form input {
+  display: block;
+  width: 100%;
+  height: 46px;
+  padding: 0 15px;
+  border: 1px solid #d4deeb;
+  border-radius: 10px;
+  outline: none;
+  color: #14243b;
+  background: #fff;
+  font: inherit;
+  font-size: 14px;
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+.grv-login-form input::placeholder {
+  color: #9aa8ba;
+}
+
+.grv-login-form input:focus {
+  border-color: #7fa4e8;
+  box-shadow: 0 0 0 3px rgba(77,125,218,.1);
+}
+
+.grv-password-wrap {
+  position: relative;
+}
+
+.grv-password-wrap input {
+  padding-right: 66px;
+}
+
+.grv-password-wrap button {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  height: 100%;
+  padding: 0 5px;
+  border: 0;
+  color: #5474a3;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.grv-submit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 47px;
+  margin-top: 7px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 10px;
+  color: #fff;
+  background: #101a30;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .01em;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(13,25,47,.18);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.grv-submit-button:hover {
+  transform: translateY(-1px);
+  background: #1b2d50;
+  box-shadow: 0 13px 24px rgba(13,25,47,.22);
+}
+
+.grv-submit-button:active {
+  transform: translateY(0);
+}
+
+.grv-login-help {
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid #edf1f6;
+}
+
+.grv-login-help strong {
+  color: #253b5a;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.grv-login-help p {
+  margin: 5px 0 0;
+  color: #8291a5;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .grv-login-card {
+    grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
+  }
+
+  .grv-login-visual {
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+
+  .grv-login-panel {
+    padding-right: 26px;
+    padding-left: 26px;
+  }
+}
+
+@media (max-width: 640px) {
+  .grv-login-page {
+    min-height: 100svh;
+    padding: 12px;
+    align-items: start;
+  }
+
+  .grv-login-card {
+    width: 100%;
+    min-height: 0;
+    grid-template-columns: 1fr;
+    border-radius: 20px;
+  }
+
+  .grv-login-visual {
+    min-height: 230px;
+    padding: 23px 24px 19px;
+  }
+
+  .grv-visual-copy {
+    margin-top: 22px;
+  }
+
+  .grv-visual-copy h1 {
+    max-width: 100%;
+    font-size: clamp(30px, 8vw, 38px);
+  }
+
+  .grv-visual-copy p {
+    max-width: 100%;
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .grv-visual-footer {
+    margin-top: 24px;
+    font-size: 8px;
+  }
+
+  .grv-orbit-one {
+    width: 260px;
+    height: 260px;
+    right: -150px;
+    bottom: -120px;
+  }
+
+  .grv-orbit-two {
+    width: 190px;
+    height: 190px;
+    right: -95px;
+    bottom: -75px;
+  }
+
+  .grv-login-panel {
+    padding: 26px 24px 25px;
+  }
+
+  .grv-login-heading {
+    margin-top: 20px;
+  }
+
+  .grv-login-heading h2 {
+    font-size: 28px;
+  }
+
+  .grv-login-heading p {
+    font-size: 13px;
+  }
+
+  .grv-feature-list {
+    margin: 18px 0 20px;
+    padding: 15px;
+  }
+
+  .grv-feature-list strong {
+    font-size: 12px;
+  }
+
+  .grv-feature-list small {
+    font-size: 11px;
+  }
+
+  .grv-login-form label {
+    font-size: 12px;
+  }
+
+  .grv-login-form input {
+    height: 49px;
+    font-size: 14px;
+  }
+
+  .grv-submit-button {
+    height: 51px;
+    font-size: 14px;
+  }
+
+  .grv-login-help p {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 380px) {
+  .grv-login-visual {
+    padding: 21px 18px 18px;
+  }
+
+  .grv-login-panel {
+    padding: 23px 18px 22px;
+  }
+
+  .grv-visual-copy h1 {
+    font-size: 29px;
+  }
+
+  .grv-visual-footer {
+    letter-spacing: .08em;
+  }
+}
