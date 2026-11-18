@@ -482,9 +482,10 @@ function FullRegister({ adminLoginId, showToast, onChanged }) {
                 <div style={{display:"flex", gap:10, alignItems:"center"}}>
                   <StatusBadge status={g.status} />
                   {(g.status === "Resolved" || g.status === "Rejected") && (
-                    <button type="button" className="delete-btn" aria-label={`Permanently delete ${g.refNo}`} title="Permanently delete closed grievance"
+                    <button type="button" className="btn btn-ghost" aria-label={`Permanently delete ${g.refNo}`} title="Permanently delete closed grievance"
+                      style={{display:"inline-flex", alignItems:"center", gap:6, padding:"7px 10px", border:"1px solid #b42318", color:"#b42318", fontSize:12, fontWeight:700, cursor:"pointer", flexShrink:0}}
                       onClick={e => { e.stopPropagation(); setDeletingGrievance(g); }}>
-                      <Trash2 size={14}/>
+                      <Trash2 size={15}/> Delete
                     </button>
                   )}
                 </div>
