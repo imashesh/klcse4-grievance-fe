@@ -1744,3 +1744,44 @@ textarea.wide:focus { border-color: var(--brass); box-shadow: 0 0 0 3px rgba(169
 @media(max-width:960px) { .reference-home-university { display:none; }.reference-sidebar { width:205px;flex-basis:205px;padding:18px 12px; }.reference-workspace-main>.container { padding:23px 20px 40px; } }
 @media(max-width:720px) { .reference-home-card,.reference-login-card { grid-template-columns:1fr; }.reference-home-panel,.reference-login-brand { min-height:250px;padding:29px 27px; }.reference-home-panel h1,.reference-login-brand h1 { font-size:28px; }.reference-home-logo,.reference-login-logo { width:60px;height:60px;margin-bottom:15px; }.reference-home-logo img,.reference-login-logo img { width:49px;height:49px; }.reference-home-panel-footer,.reference-login-brand-foot { padding-top:18px; }.reference-home-content,.reference-login-form-panel { padding:30px 26px; }.reference-home-main { padding:20px 13px; }.reference-home-header { padding:12px 15px; }.reference-workspace-layout { display:block; }.reference-sidebar { width:100%;height:auto;flex-basis:auto;border-right:0;border-bottom:1px solid #e3eaf2;padding:12px 15px; }.reference-sidebar-brand { padding-bottom:8px;border-bottom:0; }.reference-sidebar-label,.reference-sidebar-help { display:none; }.reference-sidebar-link { display:inline-flex;width:auto;margin-right:7px;padding:9px 12px; }.reference-sidebar-profile { margin-top:8px;padding-top:8px; }.reference-workspace-main>.container { padding:18px 13px 35px; } }
 @media(max-width:420px) { .reference-home-features { grid-template-columns:1fr; }.reference-home-signin { padding:9px 10px; }.reference-home-brand span { font-size:8px; } }
+
+
+/* Reference-aligned compact typography: 14px body, 12-13px secondary, restrained headings. */
+.reference-home,.reference-login,.reference-shell { font-size:14px;line-height:1.5; }
+.reference-home-panel h1,.reference-login-brand h1 { font-size:clamp(25px,2.3vw,31px);line-height:1.2; }
+.reference-home-content h2 { font-size:clamp(24px,2.35vw,30px);line-height:1.25; }
+.reference-home-lead { font-size:14px; }.reference-home-description,.reference-home-panel p,.reference-login-brand p { font-size:13px; }
+.reference-login-form-panel h2 { font-size:23px; }
+.reference-home-features span,.reference-login-trust { font-size:12px; }
+.reference-shell .topbar-title { font-size:15px; }
+.reference-shell .topbar-sub,.reference-shell .who span { font-size:11px; }
+.reference-shell .who b { font-size:12px; }
+.reference-sidebar-link { font-size:13px; }
+.reference-sidebar-help p,.reference-sidebar-profile small { font-size:11px; }
+.reference-workspace-main .welcome-banner h1,
+.reference-workspace-main .dashboard-hero h1,
+.reference-workspace-main .page-head h1 { font-size:clamp(21px,2.1vw,27px);line-height:1.25;letter-spacing:-.025em; }
+.reference-workspace-main .welcome-banner p,
+.reference-workspace-main .dashboard-hero p,
+.reference-workspace-main .page-head p { font-size:13px;line-height:1.6; }
+.reference-workspace-main h2 { font-size:19px;line-height:1.35; }
+.reference-workspace-main h3 { font-size:16px;line-height:1.4; }
+.reference-workspace-main .stat-card .num { font-size:clamp(23px,2.3vw,29px);line-height:1.2; }
+.reference-workspace-main .stat-card .lbl { font-size:12px; }
+.reference-workspace-main .tab,
+.reference-workspace-main .btn,
+.reference-workspace-main button { font-size:13px; }
+.reference-workspace-main .field label,
+.reference-workspace-main input,
+.reference-workspace-main select,
+.reference-workspace-main textarea,
+.reference-workspace-main td,
+.reference-workspace-main th { font-size:13px; }
+.reference-workspace-main .g-card p,
+.reference-workspace-main .form-card p { font-size:13px;line-height:1.6; }
+.reference-workspace-main .dashboard-eyebrow { font-size:10px; }
+@media(max-width:720px) {
+  .reference-home-panel h1,.reference-login-brand h1 { font-size:25px; }
+  .reference-home-content h2 { font-size:24px; }
+  .reference-workspace-main .welcome-banner h1,.reference-workspace-main .dashboard-hero h1,.reference-workspace-main .page-head h1 { font-size:22px; }
+}
