@@ -1,97 +1,40 @@
-
-import {
-  ChevronRight,
-  Award,
-  UserRound,
-} from "lucide-react";
+import { Award, ArrowRight, ShieldCheck, ClipboardCheck, Users } from "lucide-react";
 
 export default function WelcomeScreen({ onSignIn }) {
   return (
-    <div className="welcome-wrap">
-      {/* Header */}
-      <header className="welcome-topbar">
-        <div className="welcome-topbar-left">
-          <div className="welcome-logo">
-            <img
-              src="/kl_logo.svg"
-              alt="KL University Logo"
-            />
-          </div>
-
-          <div className="welcome-brand-details">
-            <div className="welcome-brand-line">
-              <span>KL CSE-4</span>
-              <span className="welcome-portal-tag">
-                PORTAL
-              </span>
-            </div>
-
-            <div className="welcome-dept-line">
-              Department of Computer Science &amp; Engineering
-            </div>
-          </div>
+    <div className="reference-home">
+      <header className="reference-home-header">
+        <div className="reference-home-brand">
+          <img src="/kl_logo.svg" alt="KL University" />
+          <div><strong>KL CSE-4</strong><span>DEPARTMENT PORTAL</span></div>
         </div>
-
-        <div className="welcome-topbar-center">
-          <div className="welcome-org-name">
-            Koneru Lakshmaiah Education Foundation
-          </div>
-          <div className="welcome-org-sub">
-            STUDENT GRIEVANCE PORTAL
-          </div>
-        </div>
-
-        <div className="welcome-header-actions">
-          <button
-            type="button"
-            className="welcome-profile-btn"
-            aria-label="Sign in"
-            onClick={onSignIn}
-          >
-            <UserRound size={17} />
-          </button>
-
-          <button
-            type="button"
-            className="welcome-signin-btn"
-            onClick={onSignIn}
-          >
-            Sign In
-          </button>
-        </div>
+        <div className="reference-home-university"><strong>Koneru Lakshmaiah Education Foundation</strong><span>STUDENT GRIEVANCE PORTAL</span></div>
+        <button type="button" onClick={onSignIn} className="reference-home-signin">Sign In <ArrowRight size={16}/></button>
       </header>
-
-      {/* Welcome Section */}
-      <main className="welcome-body">
-        <section className="welcome-main">
-          <div className="welcome-card">
-            <div className="welcome-badge">
-              <Award size={13} />
-              <span>DEPARTMENT PORTAL</span>
+      <main className="reference-home-main">
+        <div className="reference-home-card">
+          <aside className="reference-home-panel">
+            <div className="reference-home-logo"><img src="/kl_logo.svg" alt="KL University emblem"/></div>
+            <div className="reference-home-kicker">KL CSE-4 · STUDENT SUPPORT PORTAL</div>
+            <h1>Student Grievance Portal</h1>
+            <p>A unified platform for student grievance submission, transparent review, and timely resolution across the department.</p>
+            <div className="reference-home-panel-footer">KL UNIVERSITY · DEPARTMENT OF CSE-4</div>
+          </aside>
+          <section className="reference-home-content">
+            <div className="reference-home-eyebrow"><Award size={15}/> WELCOME TO KL CSE-4</div>
+            <h2>Your voice matters.<br/><strong>We're here to help.</strong></h2>
+            <p className="reference-home-lead">A simpler way to raise and resolve concerns.</p>
+            <p className="reference-home-description">Submit grievances, monitor progress and stay informed at every stage, from your faculty counsellor to the Head of Department.</p>
+            <div className="reference-home-features">
+              <span><ClipboardCheck size={17}/> Easy grievance tracking</span>
+              <span><ShieldCheck size={17}/> Secure access</span>
+              <span><Users size={17}/> Multi-level review</span>
+              <span><Award size={17}/> Transparent resolutions</span>
             </div>
-
-            <h1 className="welcome-heading">
-              Welcome to KL CSE-4
-            </h1>
-
-            <p className="welcome-subheading">
-              Student Grieveance Portal
-            </p>
-
-            <p className="welcome-desc">
-             A centralized platform for submitting student grievances, tracking their status, and managing the resolution process. It enables transparent reviews, organized grievance handling, and effective coordination between students, faculty, and designated authorities.
-            </p>
-
-            <button
-              type="button"
-              className="welcome-cta"
-              onClick={onSignIn}
-            >
-              <span>Sign In to Portal</span>
-              <ChevronRight size={16} />
-            </button>
-          </div>
-        </section>
+            <button type="button" onClick={onSignIn} className="reference-home-primary">Sign In to Portal <ArrowRight size={18}/></button>
+            <p className="reference-home-note">Authorized students, faculty and department staff only.</p>
+          </section>
+        </div>
       </main>
     </div>
   );
