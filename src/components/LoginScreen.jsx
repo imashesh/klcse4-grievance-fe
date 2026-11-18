@@ -10,12 +10,13 @@ import {
 export default function LoginScreen({ onLogin, error, clearError }) {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [loginRole, setLoginRole] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   function submit(event) {
     event.preventDefault();
     if (!id.trim() || !password) return;
-    onLogin(id.trim(), password);
+    onLogin(id.trim(), password, loginRole);
   }
 
   function updateId(value) {
@@ -124,6 +125,21 @@ export default function LoginScreen({ onLogin, error, clearError }) {
               </button>
             </div>
 
+            <label htmlFor="grievance-login-role">Sign in as</label>
+            <select
+              id="grievance-login-role"
+              value={loginRole}
+              onChange={(event) => { setLoginRole(event.target.value); clearError(); }}
+              style={{width:"100%", padding:"12px", border:"1px solid #cbd5e1", borderRadius:6, fontSize:14, background:"#fff"}}
+            >
+              <option value="">Automatic (default)</option>
+              <option value="admin">Administrator</option>
+              <option value="deputy_hod">Deputy HOD</option>
+            </select>
+            <small style={{display:"block", color:"#64748b", lineHeight:1.5}}>
+              If your ID has both roles, choose the dashboard you want. Administrator requires the Administrator password.
+            </small>
+
             <button className="grv-submit-button" type="submit">
               Sign In
             </button>
@@ -132,8 +148,8 @@ export default function LoginScreen({ onLogin, error, clearError }) {
           <div className="grv-login-help">
             <strong>Login help</strong>
             <p>
-              Use your assigned Login ID and password. Your role and access
-              permissions are detected automatically.
+              Use your assigned Login ID and password. Choose a role above if
+              you have more than one account under the same ID.
             </p>
           </div>
         </section>
