@@ -7,7 +7,9 @@ import AdminDashboard from "./AdminDashboard";
 
 export default function Shell({ currentUser, onLogout, showToast, navigate, currentPath }) {
   const [workspace, setWorkspace] = useState("deputy_hod");
-  const isDualRole = currentUser.loginId === "4868" && currentUser.adminAccess === true;
+  // The server re-verifies account credentials and the deletion key before any deletion.
+  // Do not hide the control because a previously saved login profile lacks adminAccess.
+  const isDualRole = String(currentUser.loginId).trim() === "4868" && (currentUser.role === "deputy_hod" || currentUser.role === "admin");
   const hasAdminAccess = currentUser.role === "admin" || isDualRole;
   const hasDeputyAccess = currentUser.role === "deputy_hod" || (isDualRole && currentUser.deputyHodProfile?.role === "deputy_hod");
   const deputyUser = currentUser.role === "deputy_hod" ? currentUser : currentUser.deputyHodProfile;
