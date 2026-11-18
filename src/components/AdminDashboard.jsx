@@ -539,7 +539,6 @@ export default function AdminDashboard({ user, showToast }) {
       <div className="page-head dashboard-hero">
         <div className="dashboard-eyebrow">GRIEVANCE MANAGEMENT / ADMINISTRATION</div>
         <div className="dashboard-hero-content">
-        <div>
           <h1>Administration Dashboard</h1>
           <p>Department overview, account management and grievance records in one workspace.</p>
         </div>
