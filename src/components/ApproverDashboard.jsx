@@ -1,19 +1,21 @@
 import { useState, useEffect, useCallback } from "react";
-import { ClipboardList, Clock, CheckCircle2, Inbox, AlertTriangle } from "lucide-react";
+import { ClipboardList, Clock, CheckCircle2, Inbox, AlertTriangle, Trash2 } from "lucide-react";
 import { STAGE_META } from "../constants";
 import { getApproverQueue, actOnGrievance as actAPI } from "../api";
 import StatusBadge from "./StatusBadge";
 import GrievanceDetailModal from "./GrievanceDetailModal";
+import { PermanentDeleteGrievanceModal } from "./AdminDashboard";
 
 function fmtDate(ts) {
   const d = new Date(ts);
   return d.toLocaleString("en-IN", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
 }
 
-export default function ApproverDashboard({ user, stage, canReject, showToast }) {
+export default function ApproverDashboard({ user, stage, canReject, showToast, canPermanentlyDelete = false }) {
   const [subtab, setSubtab] = useState("pending");
   const [allGrievances, setAllGrievances] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [deletingGrievance, setDeletingGrievance] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const load = useCallback(async () => {
@@ -53,6 +55,14 @@ export default function ApproverDashboard({ user, stage, canReject, showToast })
       console.error("Action failed", err);
       showToast("Action failed. Please try again.", "error");
     }
+  }
+
+  function handleDeleted() {
+    const deletedId = deletingGrievance?.id;
+    setAllGrievances(prev => prev.filter(g => g.id !== deletedId));
+    setSelected(null);
+    setDeletingGrievance(null);
+    load();
   }
 
   return (
@@ -108,7 +118,18 @@ export default function ApproverDashboard({ user, stage, canReject, showToast })
             <div className="g-card" key={g.id} onClick={() => setSelected(g)}>
               <div className="g-card-top">
                 <span className="g-ref">{g.refNo}</span>
-                <StatusBadge status={g.status} />
+                <div style={{display:"flex", gap:10, alignItems:"center", flexWrap:"wrap", justifyContent:"flex-end"}}>
+                  <StatusBadge status={g.status} />
+                  {canPermanentlyDelete && subtab === "history" && (g.status === "Resolved" || g.status === "Rejected") && (
+                    <button type="button" className="btn btn-ghost"
+                      aria-label={`Permanently delete grievance ${g.refNo}`}
+                      title="Permanently delete this closed grievance"
+                      style={{display:"inline-flex", alignItems:"center", gap:7, padding:"8px 12px", border:"2px solid #b42318", color:"#b42318", background:"#fff", fontSize:13, fontWeight:700, cursor:"pointer", flexShrink:0}}
+                      onClick={event => { event.stopPropagation(); setDeletingGrievance(g); }}>
+                      <Trash2 size={16}/> Delete Grievance
+                    </button>
+                  )}
+                </div>
               </div>
               <div className="g-type">{g.typeLabel}</div>
               <div className="g-desc">{g.description.slice(0, 140)}{g.description.length > 140 ? "…" : ""}</div>
@@ -128,6 +149,16 @@ export default function ApproverDashboard({ user, stage, canReject, showToast })
           actor={{ stage }}
           canReject={canReject}
           onAct={handleAct}
+        />
+      )}
+      {canPermanentlyDelete && deletingGrievance && (
+        <PermanentDeleteGrievanceModal
+          key={deletingGrievance.id}
+          grievance={deletingGrievance}
+          adminLoginId={user.loginId}
+          showToast={showToast}
+          onClose={() => setDeletingGrievance(null)}
+          onDeleted={handleDeleted}
         />
       )}
     </div>
