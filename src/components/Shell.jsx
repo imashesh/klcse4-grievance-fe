@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LogOut } from "lucide-react";
+import { LogOut, LayoutDashboard, ShieldCheck } from "lucide-react";
 import { ROLE_LABELS } from "../constants";
 import StudentDashboard from "./StudentDashboard";
 import ApproverDashboard from "./ApproverDashboard";
@@ -39,12 +39,24 @@ export default function Shell({ currentUser, onLogout, showToast, navigate, curr
       </div>
 
       {showBoth && (
-        <div className="container" style={{display:"flex", gap:10, paddingTop:20, paddingBottom:8, flexWrap:"wrap"}}>
-          <button type="button" className={`btn ${workspace === "admin" ? "btn-maroon" : "btn-ghost"}`}
-            onClick={() => setWorkspace("admin")}>Admin Dashboard</button>
-          <button type="button" className={`btn ${workspace === "deputy_hod" ? "btn-maroon" : "btn-ghost"}`}
-            onClick={() => setWorkspace("deputy_hod")}>Deputy HOD Dashboard</button>
-        </div>
+        <nav className="workspace-nav" aria-label="Dashboard workspace">
+          <div className="workspace-nav-inner">
+            <div className="workspace-nav-heading">
+              <span className="workspace-nav-eyebrow">YOUR WORKSPACES</span>
+              <span className="workspace-nav-caption">Switch between review and administration</span>
+            </div>
+            <div className="workspace-switcher" role="group" aria-label="Choose dashboard">
+              <button type="button" className={`workspace-option ${workspace === "deputy_hod" ? "active" : ""}`}
+                aria-pressed={workspace === "deputy_hod"} onClick={() => setWorkspace("deputy_hod")}>
+                <LayoutDashboard size={17}/> Deputy HOD
+              </button>
+              <button type="button" className={`workspace-option ${workspace === "admin" ? "active" : ""}`}
+                aria-pressed={workspace === "admin"} onClick={() => setWorkspace("admin")}>
+                <ShieldCheck size={17}/> Administration
+              </button>
+            </div>
+          </div>
+        </nav>
       )}
 
       {currentUser.role === "student" && (
