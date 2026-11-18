@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { Search, Plus, Users, FileText, Pencil, Trash2, X, Check, BarChart3, ClipboardList, CheckCircle2, XCircle, Clock, TrendingUp } from "lucide-react";
 import { BATCHES, CATEGORIES, STAGE_META } from "../constants";
-import { getUsers, getUserStats, getGrievanceStats, getAllGrievances, addUser as addUserAPI, bulkAddUsers as bulkAPI, updateUser as updateUserAPI, deleteUser as deleteUserAPI } from "../api";
+import { getUsers, getUserStats, getGrievanceStats, getAllGrievances, permanentlyDeleteGrievance, addUser as addUserAPI, bulkAddUsers as bulkAPI, updateUser as updateUserAPI, deleteUser as deleteUserAPI } from "../api";
 import StatusBadge from "./StatusBadge";
 import GrievanceDetailModal from "./GrievanceDetailModal";
 
@@ -339,26 +339,116 @@ function UserManagement({ showToast }) {
   );
 }
 
+// ---- Permanent grievance deletion (separate from user deletion) ----
+function PermanentDeleteGrievanceModal({ grievance, adminLoginId, onClose, onDeleted, showToast }) {
+  const [referenceConfirmation, setReferenceConfirmation] = useState("");
+  const [reason, setReason] = useState("");
+  const [adminPassword, setAdminPassword] = useState("");
+  const [securityKey, setSecurityKey] = useState("");
+  const [reviewing, setReviewing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const eligible = grievance.status === "Resolved" || grievance.status === "Rejected";
+  const ready = eligible && referenceConfirmation === grievance.refNo && reason.trim().length >= 10 && reason.trim().length <= 500 && adminPassword.length > 0 && securityKey.length > 0;
+
+  async function confirmDeletion() {
+    if (!ready || !reviewing || saving) return;
+    setSaving(true);
+    try {
+      await permanentlyDeleteGrievance(grievance.id, adminLoginId, adminPassword, securityKey, referenceConfirmation, reason.trim());
+      setAdminPassword("");
+      setSecurityKey("");
+      showToast(`Grievance ${grievance.refNo} permanently deleted.`);
+      onDeleted();
+      onClose();
+    } catch (err) {
+      setAdminPassword("");
+      setSecurityKey("");
+      setReviewing(false);
+      showToast(err.response?.data?.error || "Could not delete grievance. Nothing was removed.", "error");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="modal-overlay" onClick={() => { if (!saving) onClose(); }}>
+      <div className="modal-card" role="dialog" aria-modal="true" aria-label="Permanently delete grievance" onClick={e => e.stopPropagation()} style={{maxWidth: 490}}>
+        <div className="modal-head">
+          <div><h2>Permanent Grievance Deletion</h2><div className="ref">{grievance.refNo} · {grievance.status}</div></div>
+          <button className="modal-close" aria-label="Close" disabled={saving} onClick={onClose}><X size={20}/></button>
+        </div>
+        <div className="modal-body">
+          <p style={{fontSize:13.5, color:"var(--slate)", lineHeight:1.65, marginBottom:18}}>
+            This will permanently remove the grievance, its case history and any attachment.
+            The deletion reason and admin identity will remain in a separate audit record.
+            <b> This cannot be undone without restoring a database backup.</b>
+          </p>
+          {!reviewing ? (
+            <>
+              <div className="field"><label htmlFor="delete-reason">Reason for deletion (10–500 characters)</label>
+                <textarea id="delete-reason" className="wide" rows={3} maxLength={500} value={reason} onChange={e => setReason(e.target.value)} placeholder="Explain why this closed grievance must be removed…" />
+              </div>
+              <div className="field"><label htmlFor="delete-ref">Type the exact grievance reference number</label>
+                <input id="delete-ref" autoComplete="off" spellCheck={false} value={referenceConfirmation} onChange={e => setReferenceConfirmation(e.target.value)} placeholder={grievance.refNo} />
+              </div>
+              <div className="field"><label htmlFor="delete-password">Confirm your admin password</label>
+                <input id="delete-password" type="password" autoComplete="current-password" value={adminPassword} onChange={e => setAdminPassword(e.target.value)} />
+              </div>
+              <div className="field"><label htmlFor="delete-security-key">Deletion security key (configured separately by the system owner)</label>
+                <input id="delete-security-key" type="password" autoComplete="off" value={securityKey} onChange={e => setSecurityKey(e.target.value)} />
+              </div>
+              <div style={{display:"flex", gap:10, marginTop:18}}>
+                <button className="btn btn-maroon" disabled={!ready} onClick={() => setReviewing(true)}>Review deletion</button>
+                <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
+              </div>
+            </>
+          ) : (
+            <>
+              <p style={{fontSize:14, lineHeight:1.7}}>
+                <b>Final confirmation:</b> Permanently delete <b>{grievance.refNo}</b> ({grievance.status})?
+                Its attachments and entire case history will be removed. This action cannot be reversed.
+              </p>
+              <div style={{display:"flex", gap:10, marginTop:18}}>
+                <button className="btn btn-maroon" disabled={saving} onClick={confirmDeletion}>
+                  <Trash2 size={14}/> {saving ? "Deleting…" : "Yes, permanently delete"}
+                </button>
+                <button className="btn btn-ghost" disabled={saving} onClick={() => setReviewing(false)}>Go Back</button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ---- Full Register ----
-function FullRegister() {
+function FullRegister({ adminLoginId, showToast, onChanged }) {
   const [grievances, setGrievances] = useState([]);
   const [q, setQ] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [selected, setSelected] = useState(null);
+  const [deletingGrievance, setDeletingGrievance] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const data = await getAllGrievances();
-        setGrievances(data);
-      } catch (err) {
-        console.error("Failed to load register", err);
-      } finally {
-        setLoading(false);
-      }
-    })();
+  const load = useCallback(async () => {
+    try {
+      const data = await getAllGrievances();
+      setGrievances(data);
+    } catch (err) {
+      console.error("Failed to load register", err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => { load(); }, [load]);
+
+  function handleDeleted() {
+    setGrievances(prev => prev.filter(g => g.id !== deletingGrievance.id));
+    load();
+    onChanged();
+  }
 
   const filtered = grievances.filter(g => {
     const matchesQ = !q || g.refNo.toLowerCase().includes(q.toLowerCase()) || g.studentName.toLowerCase().includes(q.toLowerCase()) || g.typeLabel.toLowerCase().includes(q.toLowerCase());
@@ -389,7 +479,15 @@ function FullRegister() {
             <div className="g-card" key={g.id} onClick={() => setSelected(g)}>
               <div className="g-card-top">
                 <span className="g-ref">{g.refNo}</span>
-                <StatusBadge status={g.status} />
+                <div style={{display:"flex", gap:10, alignItems:"center"}}>
+                  <StatusBadge status={g.status} />
+                  {(g.status === "Resolved" || g.status === "Rejected") && (
+                    <button type="button" className="delete-btn" aria-label={`Permanently delete ${g.refNo}`} title="Permanently delete closed grievance"
+                      onClick={e => { e.stopPropagation(); setDeletingGrievance(g); }}>
+                      <Trash2 size={14}/>
+                    </button>
+                  )}
+                </div>
               </div>
               <div className="g-type">{g.typeLabel}</div>
               <div className="g-meta">
@@ -404,30 +502,34 @@ function FullRegister() {
       )}
 
       {selected && <GrievanceDetailModal grievance={selected} onClose={() => setSelected(null)} actor={null} canReject={false} onAct={() => {}} />}
+      {deletingGrievance && (
+        <PermanentDeleteGrievanceModal key={deletingGrievance.id} grievance={deletingGrievance} adminLoginId={adminLoginId} showToast={showToast}
+          onClose={() => setDeletingGrievance(null)} onDeleted={handleDeleted} />
+      )}
     </div>
   );
 }
 
 // ---- Admin Dashboard ----
-export default function AdminDashboard({ showToast }) {
+export default function AdminDashboard({ user, showToast }) {
   const [tab, setTab] = useState("overview");
   const [userStats, setUserStats] = useState({});
   const [gStats, setGStats] = useState({});
   const [recentGrievances, setRecentGrievances] = useState([]);
   const [selectedGrievance, setSelectedGrievance] = useState(null);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const [us, gs, allG] = await Promise.all([getUserStats(), getGrievanceStats(), getAllGrievances()]);
-        setUserStats(us);
-        setGStats(gs);
-        setRecentGrievances(allG.slice(0, 5));
-      } catch (err) {
-        console.error("Failed to load stats", err);
-      }
-    })();
+  const refreshOverview = useCallback(async () => {
+    try {
+      const [us, gs, allG] = await Promise.all([getUserStats(), getGrievanceStats(), getAllGrievances()]);
+      setUserStats(us);
+      setGStats(gs);
+      setRecentGrievances(allG.slice(0, 5));
+    } catch (err) {
+      console.error("Failed to load stats", err);
+    }
   }, []);
+
+  useEffect(() => { refreshOverview(); }, [refreshOverview]);
 
   const totalUsers = (userStats.student || 0) + (userStats.faculty || 0) + (userStats.coordinator || 0) + (userStats.deputy_hod || 0) + (userStats.hod || 0);
 
@@ -533,7 +635,7 @@ export default function AdminDashboard({ showToast }) {
       )}
 
       {tab === "users" && <UserManagement showToast={showToast} />}
-      {tab === "register" && <FullRegister />}
+      {tab === "register" && <FullRegister adminLoginId={user.loginId} showToast={showToast} onChanged={refreshOverview} />}
     </div>
   );
 }

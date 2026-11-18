@@ -44,7 +44,7 @@ export default function Shell({ currentUser, onLogout, showToast, navigate, curr
         <ApproverDashboard user={currentUser} stage="hod" canReject={true} showToast={showToast} />
       )}
       {currentUser.role === "admin" && (
-        <AdminDashboard showToast={showToast} />
+        <AdminDashboard user={currentUser} showToast={showToast} />
       )}
 
       <footer className="app-footer">

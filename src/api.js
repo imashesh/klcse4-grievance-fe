@@ -17,6 +17,14 @@ export async function getAllGrievances() {
   return res.data;
 }
 
+// Admin must re-enter their password. Never cache it in localStorage or an auth header.
+export async function permanentlyDeleteGrievance(id, adminLoginId, adminPassword, securityKey, referenceConfirmation, reason) {
+  const res = await api.delete(`/grievances/${encodeURIComponent(id)}`, {
+    data: { adminLoginId, adminPassword, securityKey, referenceConfirmation, reason },
+  });
+  return res.data;
+}
+
 export async function getApproverQueue(stage, role, userId, batch, categories) {
   const params = { stage, role, userId };
   if (batch) params.batch = batch;
