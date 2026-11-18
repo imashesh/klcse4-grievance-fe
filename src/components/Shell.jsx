@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LogOut, LayoutDashboard, ShieldCheck } from "lucide-react";
+import { LogOut, LayoutDashboard, ShieldCheck, ClipboardList, UserRound, HelpCircle } from "lucide-react";
 import { ROLE_LABELS } from "../constants";
 import StudentDashboard from "./StudentDashboard";
 import ApproverDashboard from "./ApproverDashboard";
@@ -16,8 +16,8 @@ export default function Shell({ currentUser, onLogout, showToast, navigate, curr
   const showBoth = hasAdminAccess && hasDeputyAccess;
 
   return (
-    <div className="shell">
-      <div className="topbar">
+    <div className="shell reference-shell">
+      <div className="topbar reference-topbar">
         <div className="topbar-left">
           <div className="topbar-badge"><img src="/kl_logo.svg" alt="KL" className="topbar-logo"/></div>
           <div>
@@ -38,6 +38,18 @@ export default function Shell({ currentUser, onLogout, showToast, navigate, curr
         </div>
       </div>
 
+      <div className="reference-workspace-layout">
+        <aside className="reference-sidebar" aria-label="Portal navigation">
+          <div className="reference-sidebar-brand"><img src="/kl_logo.svg" alt="KL"/><div><strong>KL CSE-4</strong><small>GRIEVANCE PORTAL</small></div></div>
+          <div className="reference-sidebar-label">WORKSPACE</div>
+          {showBoth ? <>
+            <button className={`reference-sidebar-link ${workspace === "deputy_hod" ? "active" : ""}`} onClick={() => setWorkspace("deputy_hod")}><LayoutDashboard size={17}/> Deputy HOD</button>
+            <button className={`reference-sidebar-link ${workspace === "admin" ? "active" : ""}`} onClick={() => setWorkspace("admin")}><ShieldCheck size={17}/> Administration</button>
+          </> : <div className="reference-sidebar-link active"><LayoutDashboard size={17}/> {ROLE_LABELS[currentUser.role] || "Dashboard"}</div>}
+          <div className="reference-sidebar-help"><HelpCircle size={18}/><strong>Student Support</strong><p>Manage grievances securely and track every review stage.</p></div>
+          <div className="reference-sidebar-profile"><span><UserRound size={18}/></span><div><strong>{currentUser.name}</strong><small>ID: {currentUser.loginId}</small></div><button type="button" onClick={onLogout} title="Sign out" aria-label="Sign out"><LogOut size={16}/></button></div>
+        </aside>
+        <div className="reference-workspace-main">
       {showBoth && (
         <nav className="workspace-nav" aria-label="Dashboard workspace">
           <div className="workspace-nav-inner">
@@ -78,6 +90,8 @@ export default function Shell({ currentUser, onLogout, showToast, navigate, curr
         <AdminDashboard user={currentUser} showToast={showToast} />
       )}
 
+        </div>
+      </div>
       <footer className="app-footer">
         <div className="footer-content">
           <div className="footer-brand">
