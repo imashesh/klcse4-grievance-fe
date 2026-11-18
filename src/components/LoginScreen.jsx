@@ -1,143 +1,43 @@
 import { useState } from "react";
-import {
-  ChevronRight,
-  AlertCircle,
-  GitBranch,
-  Lock,
-  BookOpen,
-} from "lucide-react";
+import { Award, Eye, EyeOff, ShieldCheck } from "lucide-react";
 
 export default function LoginScreen({ onLogin, error, clearError }) {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
   function submit(event) {
     event.preventDefault();
-    if (!id.trim() || !password) return;
-    onLogin(id.trim(), password);
+    if (id.trim() && password) onLogin(id.trim(), password);
   }
-
-  function updateId(value) {
-    setId(value);
-    clearError();
-  }
-
-  function updatePassword(value) {
-    setPassword(value);
-    clearError();
-  }
-
   return (
-    <main className="grv-login-page">
-      <section className="grv-login-card" aria-label="Student Grievance Portal sign in">
-        <aside className="grv-login-visual">
-          <div className="grv-department-mark">
-            <div className="grv-logo">
-              <img src="/kl_logo.svg" alt="KL University emblem" />
-            </div>
-            <span>Department of CSE-4</span>
-          </div>
-
-          <div className="grv-visual-copy">
-            <h1>Student Grievance Portal</h1>
-            <p>
-              A centralized platform for submitting student grievances, tracking
-              their status, and managing the resolution process with transparency
-              and accountability.
-            </p>
-          </div>
-
-          <div className="grv-orbit grv-orbit-one" />
-          <div className="grv-orbit grv-orbit-two" />
-          <div className="grv-visual-footer">
-            KL UNIVERSITY <span>·</span> CSE-4 <span>·</span> STUDENT GRIEVANCE PORTAL
-          </div>
+    <main className="reference-login">
+      <div className="reference-login-card">
+        <aside className="reference-login-brand">
+          <div className="reference-login-logo"><img src="/kl_logo.svg" alt="KL University logo" /></div>
+          <div className="reference-login-kicker">KL CSE-4 · STUDENT SUPPORT PORTAL</div>
+          <h1>Student Grievance Portal</h1>
+          <p>A unified platform for submitting student grievances, monitoring their progress, and coordinating transparent departmental resolutions.</p>
+          <div className="reference-login-brand-foot">KL UNIVERSITY · DEPARTMENT OF CSE-4</div>
         </aside>
-
-        <section className="grv-login-panel">
-          <div className="grv-back-label">
-            <ChevronRight size={14} className="grv-back-chevron" />
-            <span>Secure Portal Access</span>
-          </div>
-
-          <div className="grv-login-heading">
-            <h2>Sign In to Portal</h2>
-            <p>Enter your credentials to access the grievance system.</p>
-          </div>
-
-          <div className="grv-feature-list">
-            <div className="grv-feature-icon"><GitBranch size={17} /></div>
-            <div>
-              <strong>Multi-Level Review</strong>
-              <small>Faculty → Coordinator → Deputy HOD → HOD</small>
-            </div>
-
-            <div className="grv-feature-icon"><BookOpen size={17} /></div>
-            <div>
-              <strong>Transparent Grievance Tracking</strong>
-              <small>Follow every stage of your grievance resolution</small>
-            </div>
-
-            <div className="grv-feature-icon"><Lock size={17} /></div>
-            <div>
-              <strong>Secure &amp; Confidential</strong>
-              <small>Role-based access for students and staff</small>
-            </div>
-          </div>
-
-          {error && (
-            <div className="grv-login-error" role="alert">
-              <AlertCircle size={16} />
-              <span>{error}</span>
-            </div>
-          )}
-
-          <form className="grv-login-form" onSubmit={submit}>
-            <label htmlFor="grievance-login-id">Login ID</label>
-            <input
-              id="grievance-login-id"
-              value={id}
-              onChange={(event) => updateId(event.target.value)}
-              placeholder="Enter your Login ID"
-              autoComplete="username"
-              required
-            />
-
+        <section className="reference-login-form-panel">
+          <div className="reference-login-eyebrow"><Award size={15}/> WELCOME BACK</div>
+          <h2>Sign in to continue</h2>
+          <p className="reference-login-intro">Enter your Login ID and password to access the Student Grievance Portal.</p>
+          <form onSubmit={submit} className="reference-login-form">
+            <label htmlFor="grievance-login-id">Username</label>
+            <input id="grievance-login-id" required autoComplete="username" value={id} onChange={e=>{setId(e.target.value);clearError();}} placeholder="Enter your Login ID" />
             <label htmlFor="grievance-login-password">Password</label>
-            <div className="grv-password-wrap">
-              <input
-                id="grievance-login-password"
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(event) => updatePassword(event.target.value)}
-                placeholder="Enter your password"
-                autoComplete="current-password"
-                required
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword((visible) => !visible)}
-                aria-label={showPassword ? "Hide password" : "Show password"}
-              >
-                {showPassword ? "Hide" : "Show"}
-              </button>
+            <div className="reference-password-field">
+              <input id="grievance-login-password" required autoComplete="current-password" type={showPassword ? "text" : "password"} value={password} onChange={e=>{setPassword(e.target.value);clearError();}} placeholder="Enter your password" />
+              <button type="button" aria-label={showPassword ? "Hide password" : "Show password"} onClick={()=>setShowPassword(v=>!v)}>{showPassword ? <EyeOff size={18}/> : <Eye size={18}/>}</button>
             </div>
-
-            <button className="grv-submit-button" type="submit">
-              Sign In
-            </button>
+            {error && <div role="alert" className="reference-login-error">{error}</div>}
+            <button type="submit" className="reference-login-submit">Sign In</button>
           </form>
-
-          <div className="grv-login-help">
-            <strong>Login help</strong>
-            <p>
-              Use your assigned Login ID and password. Your authorized access is
-              detected automatically.
-            </p>
-          </div>
+          <div className="reference-login-trust"><ShieldCheck size={16}/> Secure, role-based access for students and staff</div>
+          <p className="reference-login-copyright">© {new Date().getFullYear()} KL CSE-4 Student Grievance Portal</p>
         </section>
-      </section>
+      </div>
     </main>
   );
 }
