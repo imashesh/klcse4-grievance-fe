@@ -1,0 +1,170 @@
+/*
+ * KL CSE-4 Grievance Portal — typography parity with the supplied
+ * Academic Counselling / Attendance Portal reference.
+ *
+ * Scoped to reference-* layouts: sign-in and all six role workspaces.
+ * Reference: 14px body/forms, 13px navigation/secondary,
+ * 24px dashboard heading, 20px section/modal, 15px top bar.
+ */
+.reference-home,
+.reference-login,
+.reference-shell,
+.reference-home button,
+.reference-login button,
+.reference-login input,
+.reference-shell button,
+.reference-shell input,
+.reference-shell select,
+.reference-shell textarea {
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.reference-home,
+.reference-login,
+.reference-shell {
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.reference-shell {
+  --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Public entry and sign-in */
+.reference-home-brand strong,
+.reference-home-university strong { font-size: 15px; line-height: 1.35; }
+.reference-home-brand span,
+.reference-home-university span { font-size: 11px; line-height: 1.4; }
+.reference-home-signin { font-size: 14px; line-height: 1.4; }
+.reference-home-kicker,
+.reference-login-kicker { font-size: 11px; line-height: 1.5; }
+.reference-home-panel h1,
+.reference-login-brand h1 { font-size: clamp(25px, 2.4vw, 31px); line-height: 1.22; }
+.reference-home-content h2 { font-size: clamp(24px, 2.35vw, 30px); line-height: 1.25; }
+.reference-home-panel p,
+.reference-login-brand p,
+.reference-home-description { font-size: 14px; line-height: 1.65; }
+.reference-home-lead { font-size: 14px; line-height: 1.5; }
+.reference-home-features span { font-size: 13px; line-height: 1.5; }
+.reference-home-eyebrow,
+.reference-login-eyebrow { font-size: 11px; line-height: 1.4; }
+.reference-home-panel-footer,
+.reference-login-brand-foot { font-size: 11px; line-height: 1.5; }
+.reference-home-note { font-size: 11px; line-height: 1.5; }
+.reference-home-primary,
+.reference-login-submit { font-size: 14px; line-height: 1.4; }
+.reference-login-form-panel h2 { font-size: 24px; line-height: 1.3; }
+.reference-login-intro { font-size: 14px; line-height: 1.6; }
+.reference-login-form label { font-size: 14px; line-height: 1.4; }
+.reference-login-form > input,
+.reference-password-field input { font-size: 14px; line-height: 1.5; }
+.reference-login-error { font-size: 13px; line-height: 1.5; }
+.reference-login-trust { font-size: 12px; line-height: 1.5; }
+.reference-login-copyright { font-size: 11px; line-height: 1.5; }
+
+/* Shared header and sidebar */
+.reference-shell .topbar-title { font-size: 15px; line-height: 1.35; }
+.reference-shell .topbar-sub { font-size: 11px; line-height: 1.45; }
+.reference-shell .who b { font-size: 12px; line-height: 1.4; }
+.reference-shell .who span { font-size: 11px; line-height: 1.4; }
+.reference-shell .logout-btn { font-size: 13px; line-height: 1.4; }
+.reference-sidebar-brand strong { font-size: 13px; line-height: 1.4; }
+.reference-sidebar-brand small { font-size: 11px; line-height: 1.4; }
+.reference-sidebar-label { font-size: 11px; line-height: 1.4; }
+.reference-sidebar-link { font-size: 13px; line-height: 1.45; }
+.reference-sidebar-help strong { font-size: 12px; line-height: 1.45; }
+.reference-sidebar-help p { font-size: 12px; line-height: 1.6; }
+.reference-sidebar-profile strong { font-size: 12px; line-height: 1.4; }
+.reference-sidebar-profile small { font-size: 11px; line-height: 1.4; }
+
+/* Student, Faculty, Coordinator, Deputy HOD, HOD, Administrator */
+.reference-workspace-main { font-size: 14px; line-height: 1.55; }
+.reference-workspace-main .welcome-banner h1,
+.reference-workspace-main .dashboard-hero h1,
+.reference-workspace-main .page-head h1 {
+  font-size: clamp(22px, 2.2vw, 24px);
+  line-height: 1.25;
+  letter-spacing: -.02em;
+}
+.reference-workspace-main h2 { font-size: 20px; line-height: 1.35; }
+.reference-workspace-main h3 { font-size: 17px; line-height: 1.4; }
+.reference-workspace-main h4 { font-size: 15px; line-height: 1.45; }
+.reference-workspace-main .welcome-banner p,
+.reference-workspace-main .dashboard-hero p,
+.reference-workspace-main .page-head p,
+.reference-workspace-main .dashboard-section-head p { font-size: 13px; line-height: 1.6; }
+.reference-workspace-main .dashboard-eyebrow { font-size: 11px; line-height: 1.4; }
+.reference-workspace-main .banner-pill { font-size: 12px; line-height: 1.45; }
+.reference-workspace-main .stat-card .num { font-size: clamp(24px, 2.2vw, 27px); line-height: 1.2; }
+.reference-workspace-main .stat-card .lbl { font-size: 12px; line-height: 1.5; }
+.reference-workspace-main .section-label { font-size: 13px; line-height: 1.45; }
+.reference-workspace-main .dashboard-section-head h2 { font-size: 19px; line-height: 1.35; }
+
+/* Navigation, actions and grievance summaries */
+.reference-workspace-main .tab,
+.reference-workspace-main .dashboard-tabs .tab,
+.reference-workspace-main .subtab,
+.reference-workspace-main .btn { font-size: 13px; line-height: 1.45; }
+.reference-workspace-main .g-type { font-size: 14px; line-height: 1.5; }
+.reference-workspace-main .g-desc { font-size: 13px; line-height: 1.6; }
+.reference-workspace-main .g-ref { font-size: 12px; line-height: 1.45; }
+.reference-workspace-main .g-meta { font-size: 12px; line-height: 1.5; }
+.reference-workspace-main .badge { font-size: 11px; line-height: 1.4; }
+.reference-workspace-main .empty-state p,
+.reference-workspace-main .empty-state-rich p { font-size: 13px; line-height: 1.6; }
+.reference-workspace-main .how-step-title { font-size: 13px; line-height: 1.5; }
+.reference-workspace-main .how-step-desc { font-size: 12px; line-height: 1.5; }
+
+/* Forms, account management, tables and grievance details */
+.reference-workspace-main .field label { font-size: 13px; line-height: 1.45; }
+.reference-workspace-main .field input,
+.reference-workspace-main .field select,
+.reference-workspace-main .field textarea,
+.reference-workspace-main textarea.wide,
+.reference-workspace-main .action-box textarea { font-size: 14px; line-height: 1.5; }
+.reference-workspace-main .file-drop { font-size: 13px; line-height: 1.5; }
+.reference-workspace-main .user-table th { font-size: 11px; line-height: 1.5; }
+.reference-workspace-main .user-table td { font-size: 13px; line-height: 1.5; }
+.reference-workspace-main .user-table td.mono { font-size: 12px; }
+.reference-workspace-main .pill { font-size: 11px; line-height: 1.4; }
+.reference-workspace-main .insight-header { font-size: 14px; line-height: 1.45; }
+.reference-workspace-main .insight-num { font-size: 26px; line-height: 1.2; }
+.reference-workspace-main .insight-label { font-size: 12px; line-height: 1.45; }
+.reference-workspace-main .recent-type { font-size: 13px; line-height: 1.5; }
+.reference-workspace-main .recent-ref,
+.reference-workspace-main .recent-date { font-size: 11px; line-height: 1.45; }
+.reference-workspace-main .modal-head h2 { font-size: 20px; line-height: 1.35; }
+.reference-workspace-main .modal-head .ref { font-size: 12px; line-height: 1.45; }
+.reference-workspace-main .student-info-title { font-size: 13px; line-height: 1.45; }
+.reference-workspace-main .student-info-label { font-size: 11px; line-height: 1.45; }
+.reference-workspace-main .student-info-value,
+.reference-workspace-main .student-info-value.mono { font-size: 13px; line-height: 1.5; }
+.reference-workspace-main .folder-tab .stage-name,
+.reference-workspace-main .folder-tab .stage-status { font-size: 11px; line-height: 1.45; }
+.reference-workspace-main .history-item .h-top { font-size: 13px; line-height: 1.5; }
+.reference-workspace-main .history-item .h-when { font-size: 11px; line-height: 1.45; }
+.reference-workspace-main .history-item .h-remarks,
+.reference-workspace-main .desc-box { font-size: 13px; line-height: 1.6; }
+.reference-workspace-main .attach-chip { font-size: 12px; line-height: 1.45; }
+.reference-workspace-main .action-box h4 { font-size: 15px; line-height: 1.4; }
+
+/* Small screens retain readable controls without oversized headings */
+@media (max-width: 720px) {
+  .reference-home-panel h1,
+  .reference-login-brand h1 { font-size: 25px; }
+  .reference-home-content h2 { font-size: 24px; }
+  .reference-login-form-panel h2 { font-size: 23px; }
+  .reference-workspace-main .welcome-banner h1,
+  .reference-workspace-main .dashboard-hero h1,
+  .reference-workspace-main .page-head h1 { font-size: 22px; }
+  .reference-workspace-main .stat-card .num { font-size: 24px; }
+  .reference-sidebar-link { font-size: 13px; }
+}
+@media (max-width: 420px) {
+  .reference-home-brand strong { font-size: 13px; }
+  .reference-home-signin { font-size: 13px; }
+  .reference-login-form label,
+  .reference-login-form > input,
+  .reference-password-field input { font-size: 14px; }
+}
