@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { ClipboardList, Clock, CheckCircle2, Inbox, AlertTriangle, Trash2 } from "lucide-react";
 import { STAGE_META } from "../constants";
-import { getApproverQueue, actOnGrievance as actAPI } from "../api";
+import { getApproverQueue, getAllGrievances, actOnGrievance as actAPI } from "../api";
 import StatusBadge from "./StatusBadge";
 import GrievanceDetailModal from "./GrievanceDetailModal";
 import { PermanentDeleteGrievanceModal } from "./AdminDashboard";
@@ -14,6 +14,7 @@ function fmtDate(ts) {
 export default function ApproverDashboard({ user, stage, canReject, showToast, canPermanentlyDelete = false }) {
   const [subtab, setSubtab] = useState("pending");
   const [allGrievances, setAllGrievances] = useState([]);
+  const [closedGrievances, setClosedGrievances] = useState([]);
   const [selected, setSelected] = useState(null);
   const [deletingGrievance, setDeletingGrievance] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -28,12 +29,16 @@ export default function ApproverDashboard({ user, stage, canReject, showToast, c
         user.categories || null
       );
       setAllGrievances(data);
+      if (canPermanentlyDelete) {
+        const register = await getAllGrievances();
+        setClosedGrievances(register.filter(g => ["resolved", "rejected"].includes(String(g.status || "").trim().toLowerCase())));
+      }
     } catch (err) {
       console.error("Failed to load queue", err);
     } finally {
       setLoading(false);
     }
-  }, [stage, user]);
+  }, [stage, user, canPermanentlyDelete]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -41,7 +46,7 @@ export default function ApproverDashboard({ user, stage, canReject, showToast, c
   const acted = allGrievances.filter(g =>
     (g.history || []).some(h => h.actorId === user.loginId)
   );
-  const list = subtab === "pending" ? pending : acted;
+  const list = subtab === "pending" ? pending : subtab === "closed" ? closedGrievances : acted;
 
   async function handleAct(grievanceId, action, remarks) {
     try {
@@ -60,6 +65,7 @@ export default function ApproverDashboard({ user, stage, canReject, showToast, c
   function handleDeleted() {
     const deletedId = deletingGrievance?.id;
     setAllGrievances(prev => prev.filter(g => g.id !== deletedId));
+    setClosedGrievances(prev => prev.filter(g => g.id !== deletedId));
     setSelected(null);
     setDeletingGrievance(null);
     load();
@@ -102,6 +108,7 @@ export default function ApproverDashboard({ user, stage, canReject, showToast, c
       <div className="tabs">
         <button className={`tab ${subtab === "pending" ? "active" : ""}`} onClick={() => setSubtab("pending")}><Clock size={14} style={{marginRight:5}}/> Pending Action ({pending.length})</button>
         <button className={`tab ${subtab === "history" ? "active" : ""}`} onClick={() => setSubtab("history")}><ClipboardList size={14} style={{marginRight:5}}/> My Actioned History</button>
+        {canPermanentlyDelete && <button className={`tab ${subtab === "closed" ? "active" : ""}`} onClick={() => setSubtab("closed")}><Trash2 size={14} style={{marginRight:5}}/> Delete Closed Grievances ({closedGrievances.length})</button>}
       </div>
 
       {loading ? (
@@ -109,7 +116,7 @@ export default function ApproverDashboard({ user, stage, canReject, showToast, c
       ) : list.length === 0 ? (
         <div className="empty-state-rich">
           <div className="empty-icon-wrap"><ClipboardList size={36} /></div>
-          <h3>{subtab === "pending" ? "Nothing pending" : "No actions taken yet"}</h3>
+          <h3>{subtab === "pending" ? "Nothing pending" : subtab === "closed" ? "No resolved or rejected grievances" : "No actions taken yet"}</h3>
           <p>{subtab === "pending" ? "You're all caught up. New grievances reaching your stage will appear here." : "Once you approve or reject a grievance, it will be listed here for reference."}</p>
         </div>
       ) : (
