@@ -1671,3 +1671,76 @@ textarea.wide:focus { border-color: var(--brass); box-shadow: 0 0 0 3px rgba(169
   .dashboard-page .g-card-top { align-items:flex-start; }
   .dashboard-page .g-meta { gap:7px 12px; }
 }
+
+
+/* ===== UI alignment with uploaded KL CSE-4 Academic Portal ===== */
+.reference-home,.reference-login,.reference-shell { font-family:Inter,Arial,sans-serif; color:#17243a; }
+.reference-home { min-height:100vh; background:#f3f6fb; }
+.reference-home-header { display:flex;align-items:center;justify-content:space-between;gap:20px;padding:15px max(28px,4vw);background:#0f172a;color:#fff;min-height:80px; }
+.reference-home-brand { display:flex;align-items:center;gap:12px; }
+.reference-home-brand img { width:47px;height:47px;object-fit:contain;background:#fff;border-radius:12px;padding:5px; }
+.reference-home-brand strong,.reference-home-brand span,.reference-home-university strong,.reference-home-university span { display:block; }
+.reference-home-brand strong { font-size:15px;font-weight:850; }.reference-home-brand span { font-size:10px;letter-spacing:.09em;color:#b5c4d7;margin-top:4px; }
+.reference-home-university { text-align:center; }.reference-home-university strong { font-size:15px; }.reference-home-university span { font-size:10px;letter-spacing:.14em;color:#c4d2e4;margin-top:4px; }
+.reference-home-signin { display:flex;align-items:center;gap:9px;background:#1e293b;color:#fff;border:1px solid #40516a;border-radius:11px;padding:11px 16px;font-weight:700;cursor:pointer; }
+.reference-home-main { min-height:calc(100vh - 80px);display:flex;align-items:center;justify-content:center;padding:52px 24px;background-image:radial-gradient(#dce5f0 1px,transparent 1px);background-size:19px 19px; }
+.reference-home-card,.reference-login-card { display:grid;grid-template-columns:1fr 1fr;width:100%;max-width:1050px;background:#fff;border:1px solid #dce4ef;border-radius:20px;overflow:hidden;box-shadow:0 22px 65px rgba(15,23,42,.10); }
+.reference-home-panel,.reference-login-brand { position:relative;display:flex;flex-direction:column;justify-content:center;min-height:500px;padding:54px 48px;background:linear-gradient(145deg,#142d50,#173a69);color:#fff;overflow:hidden; }
+.reference-home-panel:before,.reference-login-brand:before { content:"";position:absolute;width:400px;height:400px;border:45px solid rgba(255,255,255,.045);border-radius:50%;right:-215px;top:-170px;pointer-events:none; }
+.reference-home-logo,.reference-login-logo { display:grid;place-items:center;width:78px;height:78px;background:#fff;border-radius:18px;margin-bottom:30px;box-shadow:0 8px 25px rgba(0,0,0,.12); }
+.reference-home-logo img,.reference-login-logo img { width:63px;height:63px;object-fit:contain; }
+.reference-home-kicker,.reference-login-kicker { font-size:10px;letter-spacing:.15em;font-weight:800;color:#e8c781; }
+.reference-home-panel h1,.reference-login-brand h1 { font-family:Inter,Arial,sans-serif;color:#fff;font-size:clamp(28px,3vw,39px);line-height:1.16;letter-spacing:-.04em;font-weight:850;margin:16px 0; }
+.reference-home-panel p,.reference-login-brand p { font-size:14px;line-height:1.85;color:#d6e5f8;max-width:410px; }
+.reference-home-panel-footer,.reference-login-brand-foot { margin-top:auto;padding-top:40px;font-size:10px;font-weight:800;letter-spacing:.12em;color:#b5cce5; }
+.reference-home-content,.reference-login-form-panel { display:flex;flex-direction:column;justify-content:center;padding:48px 48px;min-width:0; }
+.reference-home-eyebrow,.reference-login-eyebrow { display:flex;align-items:center;gap:8px;color:#b28a3d;font-size:11px;font-weight:850;letter-spacing:.14em; }
+.reference-home-content h2 { color:#132b4a;font-size:clamp(27px,3vw,37px);line-height:1.2;letter-spacing:-.04em;font-weight:850;margin:18px 0 0; }
+.reference-home-content h2 strong { color:#2d5f96; }
+.reference-home-lead { font-size:16px;font-weight:750;color:#263f5d;margin:18px 0 6px; }
+.reference-home-description { font-size:13px;color:#64748b;line-height:1.85; }
+.reference-home-features { display:grid;grid-template-columns:1fr 1fr;gap:15px 12px;margin:25px 0 30px; }
+.reference-home-features span { display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;color:#35516f; }.reference-home-features svg { color:#b58a35;flex-shrink:0; }
+.reference-home-primary,.reference-login-submit { display:flex;align-items:center;justify-content:center;gap:12px;width:100%;border:0;border-radius:10px;padding:15px 20px;background:#142b4b;color:#fff;font-size:14px;font-weight:800;cursor:pointer;transition:background .2s; }
+.reference-home-primary:hover,.reference-login-submit:hover { background:#245080; }
+.reference-home-note { font-size:10px;text-align:center;color:#8795a9;margin:17px 0 0; }
+.reference-login { display:flex;align-items:center;justify-content:center;min-height:100vh;padding:25px;background:#f3f6fb;background-image:radial-gradient(#dce5f0 1px,transparent 1px);background-size:19px 19px; }
+.reference-login-card { max-width:1000px; }.reference-login-brand { min-height:535px; }
+.reference-login-form-panel h2 { color:#0f172a;font-size:26px;letter-spacing:-.035em;font-weight:850;margin:11px 0; }
+.reference-login-intro { color:#64748b;font-size:13px;line-height:1.7;margin:0 0 26px; }
+.reference-login-form { display:flex;flex-direction:column;gap:10px; }
+.reference-login-form label { color:#334155;font-size:13px;font-weight:750;margin-top:8px; }
+.reference-login-form>input,.reference-password-field input { box-sizing:border-box;width:100%;height:47px;border:1px solid #cbd5e1;border-radius:9px;background:#fff;color:#0f172a;padding:0 13px;font:500 13px Inter,Arial,sans-serif;outline:none; }
+.reference-login-form input:focus { border-color:#2d5f96;box-shadow:0 0 0 3px rgba(45,95,150,.12); }
+.reference-password-field { position:relative; }.reference-password-field input { padding-right:48px; }
+.reference-password-field button { position:absolute;right:6px;top:5px;width:38px;height:37px;display:grid;place-items:center;border:0;background:transparent;color:#64748b;cursor:pointer; }
+.reference-login-submit { margin-top:15px; }.reference-login-error { background:#fef2f2;color:#b42318;padding:11px;border-radius:9px;font-size:12px; }
+.reference-login-trust { display:flex;align-items:center;justify-content:center;gap:8px;margin-top:25px;color:#64748b;font-size:11px; }
+.reference-login-copyright { color:#94a3b8;font-size:10px;text-align:center;margin-top:20px; }
+.reference-shell { background:#f5f7fb;min-height:100vh; }
+.reference-shell .reference-topbar { background:#0f172a;color:#fff;border-bottom:1px solid #24344c;box-shadow:none; }
+.reference-workspace-layout { display:flex;align-items:stretch;flex:1;min-height:calc(100vh - 170px); }
+.reference-sidebar { width:245px;flex:0 0 245px;background:#fff;border-right:1px solid #e3eaf2;padding:25px 16px 18px;display:flex;flex-direction:column;gap:6px; }
+.reference-sidebar-brand { display:flex;align-items:center;gap:11px;padding:0 6px 20px;border-bottom:1px solid #edf1f6; }
+.reference-sidebar-brand img { width:43px;height:43px;object-fit:contain;border:1px solid #e5eaf1;border-radius:11px;padding:3px; }
+.reference-sidebar-brand strong,.reference-sidebar-brand small { display:block; }.reference-sidebar-brand strong { font-size:13px;font-weight:900;color:#17243a; }.reference-sidebar-brand small { font-size:9px;letter-spacing:.13em;color:#73839a;margin-top:4px; }
+.reference-sidebar-label { font-size:10px;font-weight:850;letter-spacing:.14em;color:#8a98aa;margin:24px 9px 8px; }
+.reference-sidebar-link { display:flex;align-items:center;gap:12px;width:100%;border:0;border-radius:9px;background:transparent;padding:13px 12px;color:#52647c;text-align:left;font-size:12px;font-weight:750;cursor:pointer; }
+.reference-sidebar-link.active { background:#eaf2fc;color:#173a69; }.reference-sidebar-link:hover { background:#f1f5f9; }
+.reference-sidebar-help { margin-top:auto;background:#f8fafd;border:1px solid #e5ebf3;border-radius:11px;padding:14px;color:#52647c; }.reference-sidebar-help strong { display:block;font-size:12px;margin-top:7px;color:#263b59; }.reference-sidebar-help p { font-size:11px;line-height:1.6;margin:6px 0 0; }
+.reference-sidebar-profile { display:flex;align-items:center;gap:9px;border-top:1px solid #edf1f6;padding-top:15px;margin-top:15px;min-width:0; }
+.reference-sidebar-profile>span { display:grid;place-items:center;flex:0 0 35px;height:35px;border-radius:9px;background:#eaf2fc;color:#285d9b; }
+.reference-sidebar-profile>div { flex:1;min-width:0; }.reference-sidebar-profile strong,.reference-sidebar-profile small { display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }.reference-sidebar-profile strong { font-size:11px; }.reference-sidebar-profile small { font-size:10px;color:#8492a5;margin-top:4px; }
+.reference-sidebar-profile button { display:grid;place-items:center;border:1px solid #e5ebf3;background:#fff;border-radius:8px;width:32px;height:32px;color:#64748b;cursor:pointer; }
+.reference-workspace-main { min-width:0;flex:1;display:flex;flex-direction:column; }
+.reference-workspace-main>.container { width:100%;max-width:1380px;padding:30px 30px 55px; }
+.reference-workspace-main .workspace-nav { background:transparent;box-shadow:none;border:0; }.reference-workspace-main .workspace-nav-inner { padding:15px 30px 0; }
+.reference-shell .welcome-banner,.reference-shell .dashboard-hero { background:linear-gradient(130deg,#142b4b,#173a69);border-radius:15px;color:#fff;box-shadow:0 6px 24px rgba(15,23,42,.06); }
+.reference-shell .stat-card,.reference-shell .g-card,.reference-shell .form-card,.reference-shell .insight-card { border-radius:12px;border-color:#e3eaf2;box-shadow:0 3px 16px rgba(15,23,42,.035); }
+.reference-shell .tabs .tab.active { background:#173a69;color:#fff;border-radius:8px; }
+.reference-shell .btn-brass { background:#173a69;color:#fff;border-color:#173a69; }.reference-shell .btn-brass:hover { background:#245080; }
+.reference-shell .section-label { color:#173a69; }
+.reference-shell .app-footer { background:#0f172a;border-top:0; }
+@media(max-width:960px) { .reference-home-university { display:none; }.reference-sidebar { width:205px;flex-basis:205px;padding:18px 12px; }.reference-workspace-main>.container { padding:23px 20px 40px; } }
+@media(max-width:720px) { .reference-home-card,.reference-login-card { grid-template-columns:1fr; }.reference-home-panel,.reference-login-brand { min-height:250px;padding:29px 27px; }.reference-home-panel h1,.reference-login-brand h1 { font-size:28px; }.reference-home-logo,.reference-login-logo { width:60px;height:60px;margin-bottom:15px; }.reference-home-logo img,.reference-login-logo img { width:49px;height:49px; }.reference-home-panel-footer,.reference-login-brand-foot { padding-top:18px; }.reference-home-content,.reference-login-form-panel { padding:30px 26px; }.reference-home-main { padding:20px 13px; }.reference-home-header { padding:12px 15px; }.reference-workspace-layout { display:block; }.reference-sidebar { width:100%;height:auto;flex-basis:auto;border-right:0;border-bottom:1px solid #e3eaf2;padding:12px 15px; }.reference-sidebar-brand { padding-bottom:8px;border-bottom:0; }.reference-sidebar-label,.reference-sidebar-help { display:none; }.reference-sidebar-link { display:inline-flex;width:auto;margin-right:7px;padding:9px 12px; }.reference-sidebar-profile { margin-top:8px;padding-top:8px; }.reference-workspace-main>.container { padding:18px 13px 35px; } }
+@media(max-width:420px) { .reference-home-features { grid-template-columns:1fr; }.reference-home-signin { padding:9px 10px; }.reference-home-brand span { font-size:8px; } }
