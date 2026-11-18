@@ -55,7 +55,7 @@ export default function Shell({ currentUser, onLogout, showToast, navigate, curr
         <ApproverDashboard user={currentUser} stage="coordinator" canReject={false} showToast={showToast} />
       )}
       {hasDeputyAccess && (!showBoth || workspace === "deputy_hod") && (
-        <ApproverDashboard user={deputyUser} stage="deputy_hod" canReject={true} showToast={showToast} />
+        <ApproverDashboard user={deputyUser} stage="deputy_hod" canReject={true} showToast={showToast} canPermanentlyDelete={isDualRole} />
       )}
       {currentUser.role === "hod" && (
         <ApproverDashboard user={currentUser} stage="hod" canReject={true} showToast={showToast} />
