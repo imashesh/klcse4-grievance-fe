@@ -72,10 +72,11 @@ export default function ApproverDashboard({ user, stage, canReject, showToast, c
   }
 
   return (
-    <div className="container">
+    <div className="container dashboard-page approver-page">
       <div className="welcome-banner">
         <div className="welcome-banner-content">
-          <h1>{STAGE_META[stage]?.label} Review Queue</h1>
+          <div className="dashboard-eyebrow">GRIEVANCE MANAGEMENT / REVIEW WORKSPACE</div>
+          <h1>{STAGE_META[stage]?.label} Dashboard</h1>
           <p>
             {stage === "faculty" && `Grievances from students you mentor, awaiting your review.`}
             {stage === "coordinator" && `Grievances from batch ${user.batch} forwarded by faculty mentors.`}
@@ -105,7 +106,8 @@ export default function ApproverDashboard({ user, stage, canReject, showToast, c
         </div>
       </div>
 
-      <div className="tabs">
+      <div className="dashboard-section-head"><div><h2>Grievance queue</h2><p>Review assigned cases, track decisions, and manage closed records.</p></div></div>
+      <div className="tabs dashboard-tabs" role="group" aria-label="Grievance queue views">
         <button className={`tab ${subtab === "pending" ? "active" : ""}`} onClick={() => setSubtab("pending")}><Clock size={14} style={{marginRight:5}}/> Pending Action ({pending.length})</button>
         <button className={`tab ${subtab === "history" ? "active" : ""}`} onClick={() => setSubtab("history")}><ClipboardList size={14} style={{marginRight:5}}/> My Actioned History</button>
         {canPermanentlyDelete && <button className={`tab ${subtab === "closed" ? "active" : ""}`} onClick={() => setSubtab("closed")}><Trash2 size={14} style={{marginRight:5}}/> Delete Closed Grievances ({closedGrievances.length})</button>}
@@ -120,15 +122,15 @@ export default function ApproverDashboard({ user, stage, canReject, showToast, c
           <p>{subtab === "pending" ? "You're all caught up. New grievances reaching your stage will appear here." : "Once you approve or reject a grievance, it will be listed here for reference."}</p>
         </div>
       ) : (
-        <div className="g-list">
+        <div className="g-list dashboard-grievance-list">
           {list.sort((a,b) => b.createdAt - a.createdAt).map(g => (
-            <div className="g-card" key={g.id} onClick={() => setSelected(g)}>
+            <div className="g-card dashboard-grievance-card" key={g.id} onClick={() => setSelected(g)}>
               <div className="g-card-top">
                 <span className="g-ref">{g.refNo}</span>
                 <div style={{display:"flex", gap:10, alignItems:"center", flexWrap:"wrap", justifyContent:"flex-end"}}>
                   <StatusBadge status={g.status} />
                   {canPermanentlyDelete && ["resolved", "rejected"].includes(String(g.status || "").trim().toLowerCase()) && (
-                    <button type="button" className="btn btn-ghost"
+                    <button type="button" className="btn btn-ghost grievance-danger-action"
                       aria-label={`Permanently delete grievance ${g.refNo}`}
                       title="Permanently delete this closed grievance"
                       style={{display:"inline-flex", alignItems:"center", gap:7, padding:"8px 12px", border:"2px solid #b42318", color:"#b42318", background:"#fff", fontSize:13, fontWeight:700, cursor:"pointer", flexShrink:0}}
