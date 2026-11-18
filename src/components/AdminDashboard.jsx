@@ -535,22 +535,24 @@ export default function AdminDashboard({ user, showToast }) {
   const totalUsers = (userStats.student || 0) + (userStats.faculty || 0) + (userStats.coordinator || 0) + (userStats.deputy_hod || 0) + (userStats.hod || 0);
 
   return (
-    <div className="container">
-      <div className="page-head">
+    <div className="container dashboard-page admin-page">
+      <div className="page-head dashboard-hero">
+        <div className="dashboard-eyebrow">GRIEVANCE MANAGEMENT / ADMINISTRATION</div>
+        <div className="dashboard-hero-content">
         <div>
-          <h1>Administration</h1>
-          <p>Manage department accounts and monitor the grievance register.</p>
+          <h1>Administration Dashboard</h1>
+          <p>Department overview, account management and grievance records in one workspace.</p>
         </div>
       </div>
 
-      <div className="tabs">
+      <div className="tabs dashboard-tabs" role="group" aria-label="Administration sections">
         <button className={`tab ${tab === "overview" ? "active" : ""}`} onClick={() => setTab("overview")}><BarChart3 size={14} style={{marginRight:6}}/> Overview</button>
         <button className={`tab ${tab === "users" ? "active" : ""}`} onClick={() => setTab("users")}><Users size={14} style={{marginRight:6}}/> Manage Users</button>
         <button className={`tab ${tab === "register" ? "active" : ""}`} onClick={() => setTab("register")}><ClipboardList size={14} style={{marginRight:6}}/> Full Register</button>
       </div>
 
       {tab === "overview" && (
-        <>
+        <div className="dashboard-overview">
           <div className="section-label"><Users size={14}/> Department Accounts</div>
           <div className="stat-row">
             <div className="stat-card stat-card-accent-blue">
@@ -632,7 +634,7 @@ export default function AdminDashboard({ user, showToast }) {
             </div>
           </div>
           {selectedGrievance && <GrievanceDetailModal grievance={selectedGrievance} onClose={() => setSelectedGrievance(null)} actor={null} canReject={false} onAct={() => {}} />}
-        </>
+        </div>
       )}
 
       {tab === "users" && <UserManagement showToast={showToast} />}
