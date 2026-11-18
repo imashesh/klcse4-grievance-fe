@@ -48,9 +48,9 @@ export default function App() {
     setTimeout(() => setToast(null), 3200);
   }
 
-  async function handleLogin(id, password) {
+  async function handleLogin(id, password, role = '') {
     try {
-      const user = await loginAPI(id, password);
+      const user = await loginAPI(id, password, role);
       setLoginError("");
       setCurrentUser(user);
       navigate("/dashboard");
@@ -58,6 +58,19 @@ export default function App() {
       const msg = err.response?.data?.error || "Login failed. Please try again.";
       setLoginError(msg);
     }
+  }
+
+  async function handleSwitchToAdmin(password) {
+    if (!currentUser || currentUser.role !== "deputy_hod") {
+      throw new Error("A Deputy HOD session is required.");
+    }
+    // The backend verifies the separate administrator account and password.
+    const user = await loginAPI(currentUser.loginId, password, "admin");
+    if (user.role !== "admin") {
+      throw new Error("Administrator authentication failed.");
+    }
+    setCurrentUser(user);
+    showToast("Administrator access verified.");
   }
 
   function handleLogout() {
@@ -88,6 +101,7 @@ export default function App() {
       <Shell
         currentUser={currentUser}
         onLogout={handleLogout}
+        onSwitchToAdmin={handleSwitchToAdmin}
         showToast={showToast}
         navigate={navigate}
         currentPath={path}
