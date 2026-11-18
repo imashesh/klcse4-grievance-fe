@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const api = axios.create({ baseURL: 'https://klgreviancebackend-production.up.railway.app/api' });
 
-export async function login(loginId, password) {
-  const res = await api.post('/auth/login', { loginId, password });
+export async function login(loginId, password, role = '') {
+  const res = await api.post('/auth/login', { loginId, password, ...(role ? { role } : {}) });
   return res.data;
 }
 
