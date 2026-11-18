@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { LogOut } from "lucide-react";
 import { ROLE_LABELS } from "../constants";
 import StudentDashboard from "./StudentDashboard";
@@ -5,6 +6,8 @@ import ApproverDashboard from "./ApproverDashboard";
 import AdminDashboard from "./AdminDashboard";
 
 export default function Shell({ currentUser, onLogout, showToast, navigate, currentPath }) {
+  const [workspace, setWorkspace] = useState("admin");
+  const hasDualWorkspace = currentUser.role === "admin" && currentUser.deputyHodProfile?.role === "deputy_hod";
   return (
     <div className="shell">
       <div className="topbar">
@@ -28,6 +31,15 @@ export default function Shell({ currentUser, onLogout, showToast, navigate, curr
         </div>
       </div>
 
+      {hasDualWorkspace && (
+        <div className="container" style={{display:"flex", gap:10, paddingTop:20, paddingBottom:8, flexWrap:"wrap"}}>
+          <button type="button" className={`btn ${workspace === "admin" ? "btn-maroon" : "btn-ghost"}`}
+            onClick={() => setWorkspace("admin")}>Admin Dashboard</button>
+          <button type="button" className={`btn ${workspace === "deputy_hod" ? "btn-maroon" : "btn-ghost"}`}
+            onClick={() => setWorkspace("deputy_hod")}>Deputy HOD Dashboard</button>
+        </div>
+      )}
+
       {currentUser.role === "student" && (
         <StudentDashboard user={currentUser} showToast={showToast} navigate={navigate} currentPath={currentPath} />
       )}
@@ -40,10 +52,13 @@ export default function Shell({ currentUser, onLogout, showToast, navigate, curr
       {currentUser.role === "deputy_hod" && (
         <ApproverDashboard user={currentUser} stage="deputy_hod" canReject={true} showToast={showToast} />
       )}
+      {hasDualWorkspace && workspace === "deputy_hod" && (
+        <ApproverDashboard user={currentUser.deputyHodProfile} stage="deputy_hod" canReject={true} showToast={showToast} />
+      )}
       {currentUser.role === "hod" && (
         <ApproverDashboard user={currentUser} stage="hod" canReject={true} showToast={showToast} />
       )}
-      {currentUser.role === "admin" && (
+      {currentUser.role === "admin" && (!hasDualWorkspace || workspace === "admin") && (
         <AdminDashboard user={currentUser} showToast={showToast} />
       )}
 
