@@ -340,7 +340,7 @@ function UserManagement({ showToast }) {
 }
 
 // ---- Permanent grievance deletion (separate from user deletion) ----
-function PermanentDeleteGrievanceModal({ grievance, adminLoginId, onClose, onDeleted, showToast }) {
+export function PermanentDeleteGrievanceModal({ grievance, adminLoginId, onClose, onDeleted, showToast }) {
   const [referenceConfirmation, setReferenceConfirmation] = useState("");
   const [reason, setReason] = useState("");
   const [adminPassword, setAdminPassword] = useState("");
@@ -391,7 +391,7 @@ function PermanentDeleteGrievanceModal({ grievance, adminLoginId, onClose, onDel
               <div className="field"><label htmlFor="delete-ref">Type the exact grievance reference number</label>
                 <input id="delete-ref" autoComplete="off" spellCheck={false} value={referenceConfirmation} onChange={e => setReferenceConfirmation(e.target.value)} placeholder={grievance.refNo} />
               </div>
-              <div className="field"><label htmlFor="delete-password">Confirm your admin password</label>
+              <div className="field"><label htmlFor="delete-password">Confirm your account password (ID {adminLoginId})</label>
                 <input id="delete-password" type="password" autoComplete="current-password" value={adminPassword} onChange={e => setAdminPassword(e.target.value)} />
               </div>
               <div className="field"><label htmlFor="delete-security-key">Deletion security key (configured separately by the system owner)</label>
