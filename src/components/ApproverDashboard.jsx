@@ -120,7 +120,7 @@ export default function ApproverDashboard({ user, stage, canReject, showToast, c
                 <span className="g-ref">{g.refNo}</span>
                 <div style={{display:"flex", gap:10, alignItems:"center", flexWrap:"wrap", justifyContent:"flex-end"}}>
                   <StatusBadge status={g.status} />
-                  {canPermanentlyDelete && subtab === "history" && (g.status === "Resolved" || g.status === "Rejected") && (
+                  {canPermanentlyDelete && ["resolved", "rejected"].includes(String(g.status || "").trim().toLowerCase()) && (
                     <button type="button" className="btn btn-ghost"
                       aria-label={`Permanently delete grievance ${g.refNo}`}
                       title="Permanently delete this closed grievance"
