@@ -170,83 +170,82 @@
 }
 
 
-/* Attendance/Certifications welcome-card parity for the Grievance sign-in page.
-   Scoped to .reference-login so the six role dashboards remain unchanged. */
+
+/* Grievance sign-in: exact 1024 x 490 desktop card geometry of Certifications.
+   No draggable panels, internal scroll areas, or oversized vertical layout. */
+.reference-login,
+.reference-login * { box-sizing: border-box; }
 .reference-login {
-  min-height: 100vh;
+  width: 100%;
+  min-height: 100svh;
+  margin: 0;
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  overflow-x: hidden;
   background: #f3f6fb;
-  background-image: radial-gradient(#dce5f0 1px, transparent 1px);
-  background-size: 19px 19px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
-.reference-login .reference-login-card {
+.reference-login-card {
   display: grid;
-  grid-template-columns: minmax(280px, .88fr) minmax(0, 1.12fr);
-  width: 100%;
-  max-width: 1024px;
+  grid-template-columns: minmax(0, 44%) minmax(0, 56%);
+  width: min(1024px, 100%);
+  height: 490px;
+  min-height: 0;
+  margin: 0 auto;
   overflow: hidden;
   border: 1px solid #d6e0ec;
   border-radius: 22px;
   background: #fff;
   box-shadow: 0 22px 55px rgba(15,35,65,.11);
 }
-.reference-login .reference-login-brand {
+.reference-login-brand {
   position: relative;
+  isolation: isolate;
   display: flex;
-  min-height: 480px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: clamp(30px, 4vw, 54px);
+  min-width: 0;
+  height: 100%;
+  padding: 54px;
   overflow: hidden;
-  background: linear-gradient(145deg, #0b172b 0%, #142d50 58%, #1d426d 100%);
   color: #fff;
+  background: linear-gradient(145deg, #0b172b 0%, #142d50 58%, #1d426d 100%);
 }
-.reference-login .reference-login-brand::before,
-.reference-login .reference-login-brand::after {
-  position: absolute;
+.reference-login-brand::before,
+.reference-login-brand::after {
   content: "";
+  position: absolute;
+  z-index: -1;
   border: 1px solid rgba(255,255,255,.10);
   border-radius: 50%;
   pointer-events: none;
 }
-.reference-login .reference-login-brand::before {
-  width: 390px; height: 390px; right: -180px; top: -150px;
-}
-.reference-login .reference-login-brand::after {
-  width: 290px; height: 290px; right: -130px; top: -100px;
-}
-.reference-login .reference-login-logo {
-  position: relative;
-  z-index: 1;
+.reference-login-brand::before { width: 390px; height: 390px; right: -180px; top: -150px; }
+.reference-login-brand::after { width: 290px; height: 290px; right: -130px; top: -100px; }
+.reference-login-logo {
   display: grid;
   place-items: center;
   width: 82px;
   height: 82px;
-  margin-bottom: 34px;
+  margin: 0 0 34px;
   padding: 7px;
+  flex-shrink: 0;
   border: 1px solid rgba(255,255,255,.45);
   border-radius: 20px;
   background: #fff;
   box-shadow: 0 12px 28px rgba(0,0,0,.2);
 }
-.reference-login .reference-login-logo img {
-  width: 100%; height: 100%; object-fit: contain; border-radius: 12px;
-}
-.reference-login .reference-login-kicker {
-  position: relative;
-  z-index: 1;
+.reference-login-logo img { display: block; width: 100%; height: 100%; object-fit: contain; border-radius: 12px; }
+.reference-login-kicker {
   color: #f5cf79;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: .16em;
 }
-.reference-login .reference-login-brand h1 {
-  position: relative;
-  z-index: 1;
+.reference-login-brand h1 {
   margin: 17px 0 12px;
   color: #fff;
   font-size: clamp(27px, 3.1vw, 39px);
@@ -254,99 +253,103 @@
   line-height: 1.14;
   letter-spacing: -.035em;
 }
-.reference-login .reference-login-brand > p {
-  position: relative;
-  z-index: 1;
+.reference-login-brand > p {
   max-width: 320px;
+  margin: 16px 0 0;
   color: #d3deed;
   font-size: 14px;
   line-height: 1.7;
 }
-.reference-login .reference-login-form-panel {
+.reference-login-form-panel {
   display: flex;
   flex-direction: column;
   justify-content: center;
   min-width: 0;
-  padding: clamp(28px, 4vw, 48px);
+  height: 100%;
+  padding: 40px;
+  background: #fff;
 }
-.reference-login .reference-login-heading { margin-bottom: 28px; }
-.reference-login .reference-login-eyebrow {
-  display: block;
+.reference-login-heading { margin: 0 0 29px; }
+.reference-login-eyebrow {
+  margin: 0;
   color: #b28a3d;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: .18em;
   text-transform: uppercase;
 }
-.reference-login .reference-login-form-panel h2 {
-  margin: 8px 0 0;
+.reference-login-form-panel h2 {
+  margin: 10px 0 0;
   color: #0f172a;
   font-size: 24px;
   font-weight: 800;
   line-height: 1.3;
   letter-spacing: -.02em;
 }
-.reference-login .reference-login-intro {
-  margin: 8px 0 0;
+.reference-login-intro {
+  margin: 9px 0 0;
   color: #64748b;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.55;
 }
-.reference-login .reference-login-form {
+.reference-login-form {
   display: flex;
   flex-direction: column;
   gap: 0;
+  margin: 0;
 }
-.reference-login .reference-login-form label {
+.reference-login-form label {
   margin: 0 0 6px;
   color: #334155;
   font-size: 14px;
   font-weight: 650;
 }
-.reference-login .reference-login-form > input,
-.reference-login .reference-password-field input {
-  box-sizing: border-box;
+.reference-login-form > input,
+.reference-password-field input {
   width: 100%;
-  height: 47px;
+  height: 49px;
+  min-height: 0;
   padding: 0 13px;
   border: 1px solid #cbd5e1;
-  border-radius: 9px;
+  border-radius: 10px;
+  outline-offset: 2px;
   background: #fff;
   color: #0f172a;
+  font: inherit;
   font-size: 14px;
-  font-family: inherit;
 }
-.reference-login .reference-login-form > input { margin-bottom: 18px; }
-.reference-login .reference-password-field {
+.reference-login-form > input { margin: 0 0 19px; }
+.reference-password-field {
   position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: 18px;
+  margin: 0 0 16px;
 }
-.reference-login .reference-password-field input { padding-right: 45px; }
-.reference-login .reference-password-field button {
+.reference-password-field input { padding-right: 45px; }
+.reference-password-field button {
   position: absolute;
-  right: 0;
   top: 0;
+  right: 0;
   display: grid;
   place-items: center;
   width: 44px;
-  height: 47px;
+  height: 49px;
+  padding: 0;
   border: 0;
   background: transparent;
   color: #64748b;
   cursor: pointer;
 }
-.reference-login .reference-login-submit {
+.reference-login-submit {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 47px;
-  margin-top: 0;
+  min-height: 48px;
+  margin: 0;
   padding: 12px 16px;
   border: 0;
-  border-radius: 9px;
+  border-radius: 12px;
   background: #142b4b;
   color: #fff;
   font-size: 14px;
@@ -354,99 +357,34 @@
   cursor: pointer;
   box-shadow: 0 5px 12px rgba(20,43,75,.14);
 }
-.reference-login .reference-login-submit:hover { background: #203f68; }
-.reference-login .reference-login-error {
-  margin-bottom: 16px;
-  padding: 12px;
+.reference-login-submit:hover { background: #203f68; }
+.reference-login-error {
+  margin: 0 0 12px;
+  padding: 10px 12px;
   border-radius: 9px;
   background: #fef2f2;
   color: #b42318;
   font-size: 13px;
 }
-.reference-login .reference-login-copyright {
-  margin: 28px 0 0;
+.reference-login-copyright {
+  margin: 29px 0 0;
   text-align: center;
   color: #94a3b8;
   font-size: 12px;
 }
 @media (max-width: 720px) {
-  .reference-login .reference-login-card { grid-template-columns: 1fr; }
-  .reference-login .reference-login-brand { min-height: 250px; padding: 29px 27px; }
-  .reference-login .reference-login-logo { margin-bottom: 18px; }
-  .reference-login .reference-login-brand h1 { font-size: 26px; }
-  .reference-login .reference-login-form-panel { padding: 28px 27px; }
+  .reference-login { padding: 16px; }
+  .reference-login-card { grid-template-columns: minmax(0,1fr); height: auto; max-width: 520px; }
+  .reference-login-brand { height: auto; min-height: 0; padding: 24px 27px; }
+  .reference-login-logo { width: 58px; height: 58px; margin-bottom: 14px; border-radius: 15px; }
+  .reference-login-brand h1 { margin: 10px 0; font-size: 25px; }
+  .reference-login-brand > p { margin-top: 6px; font-size: 12px; line-height: 1.5; }
+  .reference-login-form-panel { height: auto; padding: 24px 27px; }
+  .reference-login-heading { margin-bottom: 18px; }
+  .reference-login-copyright { margin-top: 18px; }
 }
-
-/* Screenshot-accurate Certification Portal login proportions and finish.
-   This overrides legacy grievance login styles only, never dashboard styles. */
-.reference-login {
-  min-height: 100dvh;
-  box-sizing: border-box;
-  background: #f3f6fb;
-  background-image: none;
-}
-.reference-login .reference-login-card {
-  grid-template-columns: 44% 56%;
-  max-width: 1024px;
-  min-height: 490px;
-  border-radius: 22px;
-}
-.reference-login .reference-login-brand {
-  min-height: 488px;
-  padding: 54px;
-  background: linear-gradient(145deg, #0b172b 0%, #142d50 58%, #1d426d 100%);
-}
-.reference-login .reference-login-brand h1 {
-  margin-top: 21px;
-  margin-bottom: 25px;
-  font-size: clamp(30px, 2.8vw, 39px);
-  line-height: 1.16;
-}
-.reference-login .reference-login-logo { margin-bottom: 34px; }
-.reference-login .reference-login-brand > p {
-  max-width: 330px;
-  line-height: 1.8;
-}
-.reference-login .reference-login-form-panel {
-  padding: 40px;
-}
-.reference-login .reference-login-heading { margin-bottom: 29px; }
-.reference-login .reference-login-form-panel h2 {
-  margin-top: 10px;
-  font-size: 24px;
-  line-height: 1.3;
-}
-.reference-login .reference-login-intro {
-  margin-top: 9px;
-  line-height: 1.55;
-}
-.reference-login .reference-login-form > input,
-.reference-login .reference-password-field input {
-  height: 49px;
-  border-radius: 10px;
-}
-.reference-login .reference-password-field button { height: 49px; }
-.reference-login .reference-login-form > input { margin-bottom: 19px; }
-.reference-login .reference-password-field { margin-bottom: 16px; }
-.reference-login .reference-login-submit {
-  min-height: 48px;
-  border-radius: 12px;
-}
-.reference-login .reference-login-copyright { margin-top: 29px; }
-@media (max-width: 720px) {
-  .reference-login .reference-login-card {
-    grid-template-columns: 1fr;
-    min-height: 0;
-  }
-  .reference-login .reference-login-brand {
-    min-height: 245px;
-    padding: 29px 27px;
-  }
-  .reference-login .reference-login-brand h1 {
-    margin-top: 12px;
-    margin-bottom: 12px;
-    font-size: 27px;
-  }
-  .reference-login .reference-login-form-panel { padding: 29px 27px; }
-  .reference-login .reference-login-logo { margin-bottom: 18px; }
+@media (max-height: 570px) and (min-width: 721px) {
+  .reference-login { align-items: flex-start; }
+  .reference-login-card { height: auto; min-height: 460px; }
+  .reference-login-brand, .reference-login-form-panel { height: auto; }
 }
