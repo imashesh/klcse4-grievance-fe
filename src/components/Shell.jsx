@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LogOut, LayoutDashboard, ShieldCheck, ClipboardList, UserRound, HelpCircle } from "lucide-react";
+import { LogOut, LayoutDashboard, ShieldCheck, UserRound, HelpCircle } from "lucide-react";
 import { ROLE_LABELS } from "../constants";
 import StudentDashboard from "./StudentDashboard";
 import ApproverDashboard from "./ApproverDashboard";
@@ -50,27 +50,6 @@ export default function Shell({ currentUser, onLogout, showToast, navigate, curr
           <div className="reference-sidebar-profile"><span><UserRound size={18}/></span><div><strong>{currentUser.name}</strong><small>ID: {currentUser.loginId}</small></div><button type="button" onClick={onLogout} title="Sign out" aria-label="Sign out"><LogOut size={16}/></button></div>
         </aside>
         <div className="reference-workspace-main">
-      {showBoth && (
-        <nav className="workspace-nav" aria-label="Dashboard workspace">
-          <div className="workspace-nav-inner">
-            <div className="workspace-nav-heading">
-              <span className="workspace-nav-eyebrow">YOUR WORKSPACES</span>
-              <span className="workspace-nav-caption">Switch between review and administration</span>
-            </div>
-            <div className="workspace-switcher" role="group" aria-label="Choose dashboard">
-              <button type="button" className={`workspace-option ${workspace === "deputy_hod" ? "active" : ""}`}
-                aria-pressed={workspace === "deputy_hod"} onClick={() => setWorkspace("deputy_hod")}>
-                <LayoutDashboard size={17}/> Deputy HOD
-              </button>
-              <button type="button" className={`workspace-option ${workspace === "admin" ? "active" : ""}`}
-                aria-pressed={workspace === "admin"} onClick={() => setWorkspace("admin")}>
-                <ShieldCheck size={17}/> Administration
-              </button>
-            </div>
-          </div>
-        </nav>
-      )}
-
       {currentUser.role === "student" && (
         <StudentDashboard user={currentUser} showToast={showToast} navigate={navigate} currentPath={currentPath} />
       )}
